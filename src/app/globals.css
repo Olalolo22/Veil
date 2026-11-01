@@ -3,38 +3,55 @@
 @tailwind utilities;
 
 :root {
-  /* Ink Neutral Ramp (from unslop tokens) */
-  --bg-deep: #07080d;
-  --bg-page: #0b0d14;
-  --bg-card: #11141c;
-  --bg-raised: #1a1e28;
-  --hairline: rgba(238, 240, 245, 0.08);
-  --hairline-strong: rgba(238, 240, 245, 0.16);
-  
-  /* Text Roles */
-  --text-primary: #eef0f5;
-  --text-secondary: #a3a9b8;
-  --text-muted: #7a8296;
+  /* ─── GLOAM INK & PAPER MONOCHROME SYSTEM ───────────────────────── */
+  --app-ground: #08090a;
+  --foreground: #f4f5f6;
+  --foreground-muted: #9ca3af;
+  --foreground-faint: #6b7280;
 
-  /* Accent: Technical Cyan (used with restraint) */
-  --accent: #00e5ff;
-  --accent-muted: rgba(0, 229, 255, 0.12);
-  
-  /* Semantics */
-  --positive: #4cc38a;
-  --negative: #e5484d;
+  --surface: #111214;
+  --surface-2: #17181b;
+  --surface-raised: #1e2025;
 
-  /* Motion Curves (from stageshow & unslop references/motion.md) */
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --line-faint: rgba(255, 255, 255, 0.04);
+
+  --mute: #8e929b;
+  --faint: #525660;
+
+  --ink: #f4f5f6;
+  --on-ink: #08090a;
+
+  /* ─── THE SINGLE SEALED GREEN ACCENT (< 5% OF SCREEN) ───────────── */
+  --sealed: #8fd3ad;
+  --sealed-soft: rgba(143, 211, 173, 0.08);
+  --sealed-border: rgba(143, 211, 173, 0.24);
+  --sealed-glow: rgba(143, 211, 173, 0.15);
+
+  /* Legacy mappings for components */
+  --bg-deep: #08090a;
+  --bg-page: #08090a;
+  --bg-card: #111214;
+  --bg-raised: #17181b;
+  --hairline: rgba(255, 255, 255, 0.08);
+  --hairline-strong: rgba(255, 255, 255, 0.16);
+  --text-primary: #f4f5f6;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+
+  /* Motion Curves */
   --ease-travel: cubic-bezier(0.45, 0, 0.1, 1);
   --ease-arrival: cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 body {
-  background-color: var(--bg-page);
-  color: var(--text-primary);
+  background-color: var(--app-ground);
+  color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 /* Tabular figures for all financial and latency metrics */
@@ -42,39 +59,128 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Surface Depth */
+/* Backward-compatible surface utilities */
 .surface-card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--hairline);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
 }
 
 .surface-raised {
-  background-color: var(--bg-raised);
-  border: 1px solid var(--hairline);
+  background-color: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
 }
 
-/* ─── STAGESHOW MOTION SYSTEM ─────────────────────────────────── */
+/* ─── GLOAM STRUCTURAL PRIMITIVES ───────────────────────────────── */
 
-/* Desktop Stage Window */
+/* 24px-radius feature panel with hairline border */
+.gl-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 18px-radius feature card */
+.gl-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  position: relative;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.gl-card:hover {
+  border-color: var(--line-strong);
+}
+
+/* Concentric glass rim */
+.gl-glass {
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gl-glass-sealed {
+  background: rgba(143, 211, 173, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--sealed-border);
+}
+
+/* ─── GLOAM PILL BUTTONS ────────────────────────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 0.2s var(--ease-travel);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-ink {
+  background: #f4f5f6;
+  color: #08090a;
+  border: 1px solid #f4f5f6;
+  padding: 12px 26px;
+  font-size: 13.5px;
+  box-shadow: 0 2px 14px rgba(255, 255, 255, 0.08);
+}
+
+.btn-ink:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.14);
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.02);
+  color: #f4f5f6;
+  border: 1px solid var(--line-strong);
+  padding: 12px 26px;
+  font-size: 13.5px;
+  backdrop-filter: blur(8px);
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+}
+
+/* ─── TYPOGRAPHY DISPLAY ACCENTS ────────────────────────────────── */
+
+.t-display-hero {
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+/* ─── STAGESHOW DESKTOP SIMULATION WINDOW ───────────────────────── */
+
 .stage-window {
-  background: var(--bg-card);
-  border: 1px solid var(--hairline-strong);
-  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 14px;
   box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.85);
   overflow: hidden;
 }
 
 .stage-titlebar {
-  background: var(--bg-deep);
-  border-bottom: 1px solid var(--hairline);
+  background: var(--app-ground);
+  border-bottom: 1px solid var(--line);
   height: 38px;
   display: flex;
   align-items: center;
   padding: 0 16px;
 }
 
-/* Staggered Row Arrival */
 .motion-stagger-item {
   opacity: 0;
   transform: translateY(8px);
@@ -86,12 +192,6 @@ body {
   transform: translateY(0);
 }
 
-/* Smooth State Fades & Surface Transitions */
-.motion-surface {
-  transition: background-color 0.25s var(--ease-travel), border-color 0.25s var(--ease-travel);
-}
-
-/* Enclave Progress Line */
 @keyframes enclaveProgress {
   0% { width: 0%; opacity: 1; }
   80% { width: 100%; opacity: 1; }
@@ -100,29 +200,4 @@ body {
 
 .animate-enclave-bar {
   animation: enclaveProgress 1.2s var(--ease-travel) forwards;
-}
-
-/* Subtle Cursor Simulation for Stageshow */
-.stage-cursor {
-  position: absolute;
-  pointer-events: none;
-  width: 14px;
-  height: 14px;
-  z-index: 50;
-  transition: transform 0.6s var(--ease-travel), opacity 0.3s ease;
-}
-
-/* Morphing Container */
-.motion-expand {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.4s var(--ease-travel);
-}
-
-.motion-expand.is-open {
-  grid-template-rows: 1fr;
-}
-
-.motion-expand-inner {
-  overflow: hidden;
 }

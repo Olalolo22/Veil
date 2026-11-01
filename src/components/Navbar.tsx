@@ -1,56 +1,71 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
-import { IconShield, IconTerminal } from "./Icons";
+import { IconShield, IconTerminal, IconArrowRight } from "./Icons";
 
 export default function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 border-b border-[var(--hairline)] bg-[var(--bg-page)]/90 backdrop-blur-md px-6 py-3.5">
-      <div className="max-w-6xl mx-auto flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full pt-3 pb-3 px-4 sm:px-7 pointer-events-none">
+      <nav className="max-w-[1400px] mx-auto flex items-center justify-between px-5 py-3 rounded-full gl-glass border border-white/[0.08] pointer-events-auto">
+        {/* Left: Brand Identity */}
         <div className="flex items-center space-x-3">
-          <Link href="/" className="flex items-center space-x-2 text-[var(--text-primary)] font-medium text-base tracking-tight">
-            <span className="p-1 rounded bg-[var(--bg-raised)] border border-[var(--hairline)] text-[var(--text-secondary)]">
-              <IconShield size={15} />
+          <Link href="/" className="flex items-center space-x-2 text-[var(--foreground)] font-medium text-sm tracking-tight group">
+            <span className="w-7 h-7 rounded-full bg-[var(--surface-2)] border border-[var(--line)] flex items-center justify-center text-[var(--foreground)] group-hover:border-[var(--sealed)] transition-colors">
+              <IconShield size={14} />
             </span>
-            <span>Veil</span>
-            <span className="text-xs text-[var(--text-muted)] font-normal ml-0.5">protocol</span>
+            <span className="font-semibold text-base">Veil</span>
+            <span className="text-[11px] font-mono text-[var(--mute)] uppercase tracking-wider hidden sm:inline-block">
+              Protocol
+            </span>
           </Link>
 
-          <div className="hidden sm:flex items-center space-x-2 ml-4 px-2 py-0.5 rounded bg-[var(--bg-card)] border border-[var(--hairline)] text-xs text-[var(--text-secondary)] font-mono">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--positive)]"></span>
+          <div className="hidden md:flex items-center space-x-2 pl-3 ml-2 border-l border-[var(--line)] text-xs font-mono text-[var(--mute)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--sealed)] animate-pulse"></span>
             <span>Robinhood Chain 4663</span>
           </div>
         </div>
 
-        <div className="hidden md:flex items-center space-x-6 text-xs text-[var(--text-secondary)]">
-          <Link href="/#problem" className="hover:text-[var(--text-primary)] transition-colors">
-            Surveillance problem
+        {/* Center: Navigation Links */}
+        <div className="hidden lg:flex items-center space-x-8 text-xs font-normal text-[var(--foreground-muted)]">
+          <Link href="#transformation" className="hover:text-[var(--foreground)] transition-colors">
+            Transformation mesh
           </Link>
-          <Link href="/#architecture" className="hover:text-[var(--text-primary)] transition-colors">
-            Dual-rail settlement
+          <Link href="#modules" className="hover:text-[var(--foreground)] transition-colors">
+            Interactive modules
           </Link>
-          <Link href="/#tokenomics" className="hover:text-[var(--text-primary)] transition-colors">
-            Fee engine & token
+          <Link href="#architecture" className="hover:text-[var(--foreground)] transition-colors">
+            Dual-rail architecture
           </Link>
+          <Link href="#sdk" className="hover:text-[var(--foreground)] transition-colors">
+            Developer SDK
+          </Link>
+          <Link href="#tokenomics" className="hover:text-[var(--foreground)] transition-colors">
+            Fee engine &amp; $VEIL
+          </Link>
+        </div>
+
+        {/* Right: Actions */}
+        <div className="flex items-center space-x-3">
           <a
             href="https://github.com/Olalolo22/Veil"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-[var(--text-primary)] transition-colors"
+            className="hidden sm:inline-flex text-xs font-mono text-[var(--mute)] hover:text-[var(--foreground)] transition-colors px-3 py-1.5"
           >
-            Repository
+            GitHub
           </a>
-        </div>
 
-        <div className="flex items-center space-x-3">
           <Link
             href="/terminal"
-            className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-md bg-[#ededed] text-[#07080d] font-medium text-xs hover:bg-white transition-colors"
+            className="inline-flex items-center space-x-1.5 px-4 py-1.5 rounded-full bg-[#f4f5f6] text-[#08090a] font-medium text-xs hover:bg-white transition-all shadow-sm"
           >
-            <IconTerminal size={14} />
-            <span>Launch terminal</span>
+            <IconTerminal size={13} />
+            <span>Terminal</span>
+            <IconArrowRight size={12} />
           </Link>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 }
