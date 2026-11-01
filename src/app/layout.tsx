@@ -15,16 +15,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased">
+      <body className="bg-[var(--bg-page)] text-[var(--text-primary)] min-h-screen flex flex-col antialiased">
         <Navbar />
         <main className="flex-1">{children}</main>
-        <footer className="border-t border-slate-900 py-8 px-6 text-center text-xs text-slate-500">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div>Veil Protocol · Confidential Agent Coordination & Zero-Dox Settlement on Robinhood Chain</div>
-            <div className="flex items-center space-x-6 text-slate-400">
-              <span>Mainnet: Robinhood (4663)</span>
+        <footer className="border-t border-[var(--hairline)] py-8 px-6 text-xs text-[var(--text-muted)] bg-[var(--bg-deep)]">
+          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px]">
+            <div>Veil Protocol · Confidential agent coordination and settlement</div>
+            <div className="flex items-center space-x-5 text-[var(--text-secondary)]">
+              <span>Robinhood Chain 4663</span>
               <span>Poseidon BN254</span>
-              <span>Groth16 Verifier</span>
+              <span>Groth16 verifier</span>
             </div>
           </div>
         </footer>
@@ -32,4 +32,3 @@ export default function RootLayout({
     </html>
   );
 }
-

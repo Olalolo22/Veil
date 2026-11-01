@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { IconShield, IconBot, IconZap, IconLock, IconCheck, IconEyeOff } from "@/components/Icons";
+import { IconShield, IconBot, IconLock, IconCheck, IconEyeOff, IconTerminal, IconArrowRight } from "@/components/Icons";
 
 interface AgentBid {
   id: string;
@@ -16,18 +16,17 @@ interface AgentBid {
 
 export default function TerminalPage() {
   const [step, setStep] = useState<number>(1);
-  const [taskType, setTaskType] = useState<string>("Arb Solver: Scrape Robinhood DEX Orderbook");
+  const [taskType, setTaskType] = useState<string>("Arbitrage solver: Robinhood DEX orderbook scan");
   const [budget, setBudget] = useState<number>(150);
   const [maxLatency, setMaxLatency] = useState<number>(50);
   const [minRep, setMinRep] = useState<number>(90);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<"public" | "private">("public");
 
-  // Mock bids scored by Ragent algorithm
-  const [bids, setBids] = useState<AgentBid[]>([
+  const [bids] = useState<AgentBid[]>([
     {
       id: "0x8f2a...c491",
-      name: "Agent-Alpha (HFT Node)",
+      name: "Agent-Alpha (HFT solver)",
       latencyMs: 38,
       reputation: 98,
       bidAmount: 148.5,
@@ -45,7 +44,7 @@ export default function TerminalPage() {
     },
     {
       id: "0x9a10...07dd",
-      name: "Apex-Bot (Data Relay)",
+      name: "Apex-Bot (Data relay)",
       latencyMs: 62,
       reputation: 89,
       bidAmount: 135.0,
@@ -63,16 +62,14 @@ export default function TerminalPage() {
     timestamp: string;
   } | null>(null);
 
-  // ─── Step 1 -> Step 2: Dispatch Intent ──────────────────────────
   const handleDispatch = () => {
     setIsProcessing(true);
     setTimeout(() => {
       setIsProcessing(false);
       setStep(2);
-    }, 800);
+    }, 700);
   };
 
-  // ─── Step 2 -> Step 3: Execute Settlement ────────────────────────
   const handleSettle = () => {
     setIsProcessing(true);
     setTimeout(() => {
@@ -88,7 +85,7 @@ export default function TerminalPage() {
       });
       setIsProcessing(false);
       setStep(3);
-    }, 1200);
+    }, 900);
   };
 
   const handleReset = () => {
@@ -97,176 +94,176 @@ export default function TerminalPage() {
   };
 
   return (
-    <div className="bg-grid-pattern min-h-screen py-10 px-6">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-[var(--bg-page)] text-[var(--text-primary)] py-8 px-6">
+      <div className="max-w-6xl mx-auto space-y-6">
         {/* Terminal Header */}
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between pb-6 mb-8 border-b border-slate-800 gap-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-[var(--hairline)] gap-4">
           <div>
-            <div className="flex items-center space-x-3">
-              <span className="p-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
-                <IconShield className="w-5 h-5" />
+            <div className="flex items-center space-x-2.5">
+              <span className="p-1 rounded bg-[var(--bg-raised)] border border-[var(--hairline)] text-[var(--text-secondary)]">
+                <IconTerminal size={15} />
               </span>
-              <h1 className="text-2xl font-extrabold text-white tracking-wide">
-                VEIL <span className="text-gradient">AGENT TERMINAL</span>
+              <h1 className="text-base font-medium text-[var(--text-primary)] tracking-tight">
+                Veil Agent Terminal
               </h1>
-              <span className="px-2 py-0.5 rounded-full bg-slate-800 text-xs text-slate-400 border border-slate-700 font-mono">
+              <span className="text-[11px] font-mono text-[var(--text-muted)]">
                 v1.0.0-rc1
               </span>
             </div>
-            <p className="text-xs text-slate-400 mt-1 font-mono">
-              Confidential Agent Intent Procurement & Zero-Dox Settlement on Robinhood Chain (ID: 4663)
+            <p className="text-xs text-[var(--text-secondary)] mt-1">
+              Confidential agent task procurement and stealth settlement on Robinhood Chain 4663
             </p>
           </div>
 
           {/* Stepper Indicator */}
-          <div className="flex items-center space-x-3 bg-slate-900/80 border border-slate-800 p-2 rounded-xl text-xs font-mono">
-            <span className={`px-3 py-1 rounded-lg ${step === 1 ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/40" : "text-slate-500"}`}>
+          <div className="flex items-center space-x-2 bg-[var(--bg-card)] border border-[var(--hairline)] px-2.5 py-1 rounded text-xs font-mono">
+            <span className={step === 1 ? "text-[var(--text-primary)] font-medium" : "text-[var(--text-muted)]"}>
               1. Intent
             </span>
-            <span className="text-slate-600">→</span>
-            <span className={`px-3 py-1 rounded-lg ${step === 2 ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/40" : "text-slate-500"}`}>
+            <span className="text-[var(--text-muted)]">/</span>
+            <span className={step === 2 ? "text-[var(--text-primary)] font-medium" : "text-[var(--text-muted)]"}>
               2. Bidding
             </span>
-            <span className="text-slate-600">→</span>
-            <span className={`px-3 py-1 rounded-lg ${step === 3 ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/40" : "text-slate-500"}`}>
-              3. Stealth Settlement
+            <span className="text-[var(--text-muted)]">/</span>
+            <span className={step === 3 ? "text-[var(--text-primary)] font-medium" : "text-[var(--text-muted)]"}>
+              3. Settlement
             </span>
           </div>
         </div>
 
         {/* ─── STEP 1: DISPATCH INTENT ────────────────────────────── */}
         {step === 1 && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 p-8 rounded-2xl bg-slate-900/70 border border-slate-800 glow-cyan">
-              <h2 className="text-lg font-bold text-white mb-2 flex items-center space-x-2">
-                <IconBot className="w-5 h-5 text-cyan-400" />
-                <span>Specify Autonomous Agent Intent</span>
-              </h2>
-              <p className="text-xs text-slate-400 mb-6">
-                Your agent locks funds in the Veil Settlement Vault without revealing task strategy or counterparty on-chain.
-              </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Left: Form Controls (7 cols) */}
+            <div className="lg:col-span-7 surface-card rounded-lg p-6 space-y-5">
+              <div>
+                <h2 className="text-sm font-medium text-[var(--text-primary)]">
+                  Specify agent task and SLA constraints
+                </h2>
+                <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+                  Locked funds remain protected under an anonymous 32-byte client commitment until settlement.
+                </p>
+              </div>
 
-              <div className="space-y-5">
+              <div className="space-y-4">
                 <div>
-                  <label className="block text-xs uppercase font-mono text-slate-400 mb-2">
-                    Task / Strategy Payload
+                  <label className="block text-xs font-mono text-[var(--text-muted)] mb-1.5">
+                    Task / strategy payload
                   </label>
                   <select
                     value={taskType}
                     onChange={(e) => setTaskType(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-cyan-400 font-mono"
+                    className="w-full bg-[var(--bg-deep)] border border-[var(--hairline)] rounded-md px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--hairline-strong)] font-mono"
                   >
-                    <option value="Arb Solver: Scrape Robinhood DEX Orderbook">
-                      Arb Solver: Scrape Robinhood DEX Orderbook & Solve Route
+                    <option value="Arbitrage solver: Robinhood DEX orderbook scan">
+                      Arbitrage solver: Robinhood DEX orderbook scan
                     </option>
-                    <option value="Perp Liquidity Balancer: Cross-DEX Hedging">
-                      Perp Liquidity Balancer: Cross-DEX Hedging & Rebalance
+                    <option value="Perp liquidity balancer: Cross-DEX hedging">
+                      Perp liquidity balancer: Cross-DEX hedging
                     </option>
-                    <option value="Private Memecoin Sniper: Zero-Frontrun Buy">
-                      Private Memecoin Sniper: Zero-Frontrun Buy Execution
+                    <option value="Private memecoin execution: Zero-frontrun buy">
+                      Private memecoin execution: Zero-frontrun buy
                     </option>
-                    <option value="Confidential Machine Learning Inference">
-                      Confidential Machine Learning Inference (Market Sentiment)
+                    <option value="Confidential machine learning inference">
+                      Confidential machine learning inference
                     </option>
                   </select>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-xs uppercase font-mono text-slate-400 mb-2">
-                      Escrow Budget (USDG)
+                    <label className="block text-xs font-mono text-[var(--text-muted)] mb-1.5">
+                      Escrow budget (USDG)
                     </label>
                     <input
                       type="number"
                       value={budget}
                       onChange={(e) => setBudget(Number(e.target.value))}
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-cyan-400 font-mono"
+                      className="w-full bg-[var(--bg-deep)] border border-[var(--hairline)] rounded-md px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--hairline-strong)] font-mono tabular-nums"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs uppercase font-mono text-slate-400 mb-2">
-                      Max Latency SLA
+                    <label className="block text-xs font-mono text-[var(--text-muted)] mb-1.5">
+                      Max latency SLA
                     </label>
                     <div className="relative">
                       <input
                         type="number"
                         value={maxLatency}
                         onChange={(e) => setMaxLatency(Number(e.target.value))}
-                        className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-cyan-400 font-mono"
+                        className="w-full bg-[var(--bg-deep)] border border-[var(--hairline)] rounded-md px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--hairline-strong)] font-mono tabular-nums"
                       />
-                      <span className="absolute right-3 top-3 text-xs text-slate-500 font-mono">ms</span>
+                      <span className="absolute right-3 top-2 text-xs text-[var(--text-muted)] font-mono">ms</span>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs uppercase font-mono text-slate-400 mb-2">
-                      Min Reputation
+                    <label className="block text-xs font-mono text-[var(--text-muted)] mb-1.5">
+                      Min reputation
                     </label>
                     <div className="relative">
                       <input
                         type="number"
                         value={minRep}
                         onChange={(e) => setMinRep(Number(e.target.value))}
-                        className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-cyan-400 font-mono"
+                        className="w-full bg-[var(--bg-deep)] border border-[var(--hairline)] rounded-md px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--hairline-strong)] font-mono tabular-nums"
                       />
-                      <span className="absolute right-3 top-3 text-xs text-slate-500 font-mono">/ 100</span>
+                      <span className="absolute right-3 top-2 text-xs text-[var(--text-muted)] font-mono">/ 100</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono space-y-2 text-slate-400">
+                {/* Calculation Breakdown */}
+                <div className="p-3.5 rounded bg-[var(--bg-deep)] border border-[var(--hairline)] font-mono text-xs space-y-2 text-[var(--text-secondary)]">
                   <div className="flex justify-between">
-                    <span>Settlement Token:</span>
-                    <span className="text-cyan-400">USDG (Robinhood Chain Native)</span>
+                    <span>Settlement currency:</span>
+                    <span className="text-[var(--text-primary)]">USDG (Robinhood Chain)</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Protocol Fee (0.5% for $VEIL buybacks):</span>
-                    <span className="text-purple-400">{(budget * 0.005).toFixed(4)} USDG</span>
+                    <span>Protocol fee (0.50%):</span>
+                    <span className="text-[var(--accent)] tabular-nums">{(budget * 0.005).toFixed(4)} USDG</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Worker Payout Commitment:</span>
-                    <span className="text-emerald-400">{(budget * 0.995).toFixed(4)} USDG</span>
+                    <span>Net worker payout:</span>
+                    <span className="text-[var(--positive)] tabular-nums font-medium">{(budget * 0.995).toFixed(4)} USDG</span>
                   </div>
                 </div>
 
                 <button
                   onClick={handleDispatch}
                   disabled={isProcessing}
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 font-bold text-sm hover:opacity-90 transition-all flex items-center justify-center space-x-2"
+                  className="w-full py-2.5 rounded-md bg-[#ededed] text-[#07080d] font-medium text-xs hover:bg-white transition-colors flex items-center justify-center space-x-2"
                 >
                   {isProcessing ? (
-                    <span>Registering Intent with Veil Vault...</span>
+                    <span>Registering intent on settlement vault...</span>
                   ) : (
                     <>
-                      <IconZap className="w-4 h-4" />
-                      <span>Dispatch Intent & Open Bidding</span>
+                      <span>Dispatch intent &amp; collect bids</span>
+                      <IconArrowRight size={13} />
                     </>
                   )}
                 </button>
               </div>
             </div>
 
-            {/* Sidebar Information */}
-            <div className="space-y-6">
-              <div className="p-6 rounded-2xl bg-slate-900/50 border border-slate-800">
-                <h3 className="text-sm font-bold text-white uppercase font-mono tracking-wider mb-3">
-                  Why Zero-Dox Escrow?
-                </h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  On standard EVM chains, when Agent A escrows funds for an arbitrage script, competitors observe the target contract and front-run the trade.
+            {/* Right: Technical Notes (5 cols) */}
+            <div className="lg:col-span-5 space-y-4">
+              <div className="surface-card rounded-lg p-5">
+                <div className="text-xs font-mono text-[var(--text-muted)] uppercase mb-2">Protocol invariant</div>
+                <h3 className="text-sm font-medium text-[var(--text-primary)] mb-1">Zero strategy leakage</h3>
+                <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                  On transparent chains, escrows reveal contract interactions before execution. Veil locks collateral under an anonymous
+                  hash: <code className="text-[var(--text-primary)] font-mono">Poseidon(clientId, nonce)</code>. Competitors cannot infer the target asset or timeframe.
                 </p>
-                <div className="mt-4 pt-4 border-t border-slate-800 text-xs text-slate-400">
-                  <strong className="text-cyan-400">Veil Invariant:</strong> The vault locks tokens under an anonymous 32-byte client commitment. Only the selected worker can redeem with the nullifier.
-                </div>
               </div>
 
-              <div className="p-6 rounded-2xl bg-slate-900/50 border border-slate-800">
-                <h3 className="text-sm font-bold text-white uppercase font-mono tracking-wider mb-3">
-                  $VEIL Creator Engine
-                </h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  50 bps from every execution routes automatically to the launchpad fee wallet, creating high continuous cash flow for $VEIL holders.
+              <div className="surface-card rounded-lg p-5">
+                <div className="text-xs font-mono text-[var(--text-muted)] uppercase mb-2">Revenue engine</div>
+                <h3 className="text-sm font-medium text-[var(--text-primary)] mb-1">Programmatic buybacks</h3>
+                <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                  50 bps from every completed task routes directly to the $VEIL DEX pool on Robinhood Chain, permanently burning tokens
+                  as autonomous agent settlement volume scales.
                 </p>
               </div>
             </div>
@@ -275,68 +272,65 @@ export default function TerminalPage() {
 
         {/* ─── STEP 2: RAGENT BIDDING MATRIX ──────────────────────── */}
         {step === 2 && (
-          <div className="p-8 rounded-2xl bg-slate-900/70 border border-slate-800 glow-purple">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between pb-6 mb-6 border-b border-slate-800 gap-4">
+          <div className="surface-card rounded-lg p-6 space-y-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-[var(--hairline)] gap-3">
               <div>
-                <h2 className="text-xl font-bold text-white flex items-center space-x-2">
-                  <IconBot className="w-5 h-5 text-purple-400" />
-                  <span>Ragent Autonomous Bidding Engine</span>
+                <h2 className="text-sm font-medium text-[var(--text-primary)]">
+                  Autonomous bidding matrix (Ragent coordinator)
                 </h2>
-                <p className="text-xs text-slate-400 mt-1">
-                  Three autonomous agent daemons submitted bids. The policy scoring algorithm automatically selected the optimal node.
+                <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+                  Candidate nodes evaluated against your latency and reputation constraints.
                 </p>
               </div>
-              <div className="text-xs font-mono text-slate-400 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
-                Task Budget: <span className="text-cyan-400 font-bold">{budget} USDG</span>
+              <div className="text-xs font-mono text-[var(--text-secondary)] bg-[var(--bg-deep)] px-2.5 py-1 rounded border border-[var(--hairline)]">
+                Budget: <span className="text-[var(--text-primary)] font-medium tabular-nums">{budget}.00 USDG</span>
               </div>
             </div>
 
             {/* Bids Table */}
-            <div className="overflow-x-auto mb-8">
+            <div className="overflow-x-auto">
               <table className="w-full text-left font-mono text-xs">
                 <thead>
-                  <tr className="border-b border-slate-800 text-slate-500 uppercase">
-                    <th className="py-3 px-4">Agent Node</th>
-                    <th className="py-3 px-4">Latency (SLA &lt; {maxLatency}ms)</th>
-                    <th className="py-3 px-4">Reputation</th>
-                    <th className="py-3 px-4">Proposed Bid</th>
-                    <th className="py-3 px-4">Policy Score</th>
-                    <th className="py-3 px-4">Outcome</th>
+                  <tr className="border-b border-[var(--hairline)] text-[var(--text-muted)] text-[11px]">
+                    <th className="py-2.5 px-3">Worker node</th>
+                    <th className="py-2.5 px-3">Latency (SLA &lt; {maxLatency}ms)</th>
+                    <th className="py-2.5 px-3">Reputation</th>
+                    <th className="py-2.5 px-3">Proposed bid</th>
+                    <th className="py-2.5 px-3">Score</th>
+                    <th className="py-2.5 px-3">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-[var(--hairline)]">
                   {bids.map((b) => (
                     <tr
                       key={b.id}
-                      className={b.selected ? "bg-cyan-500/10 border-l-2 border-cyan-400 text-white" : "text-slate-400"}
+                      className={b.selected ? "bg-[var(--bg-raised)]/60 text-[var(--text-primary)]" : "text-[var(--text-secondary)]"}
                     >
-                      <td className="py-4 px-4 font-bold flex items-center space-x-2">
-                        <IconBot className={`w-4 h-4 ${b.selected ? "text-cyan-400" : "text-slate-600"}`} />
+                      <td className="py-3 px-3 font-medium flex items-center space-x-2">
+                        <IconBot size={13} className={b.selected ? "text-[var(--accent)]" : "text-[var(--text-muted)]"} />
                         <span>{b.name}</span>
-                        <span className="text-slate-600 text-[10px]">({b.id})</span>
+                        <span className="text-[var(--text-muted)] text-[10px]">({b.id})</span>
                       </td>
-                      <td className="py-4 px-4">
-                        <span className={b.latencyMs <= maxLatency ? "text-emerald-400" : "text-red-400"}>
+                      <td className="py-3 px-3">
+                        <span className={b.latencyMs <= maxLatency ? "text-[var(--positive)] tabular-nums" : "text-[var(--negative)] tabular-nums"}>
                           {b.latencyMs}ms
                         </span>
                       </td>
-                      <td className="py-4 px-4">
-                        <span className={b.reputation >= minRep ? "text-cyan-400 font-bold" : "text-slate-500"}>
-                          {b.reputation}%
-                        </span>
+                      <td className="py-3 px-3">
+                        <span className="tabular-nums">{b.reputation}%</span>
                       </td>
-                      <td className="py-4 px-4">{b.bidAmount} USDG</td>
-                      <td className="py-4 px-4">
-                        <span className="px-2 py-0.5 rounded bg-slate-800 text-white font-bold">{b.score}</span>
+                      <td className="py-3 px-3 tabular-nums">{b.bidAmount} USDG</td>
+                      <td className="py-3 px-3">
+                        <span className="text-[var(--text-primary)] font-medium tabular-nums">{b.score}</span>
                       </td>
-                      <td className="py-4 px-4">
+                      <td className="py-3 px-3">
                         {b.selected ? (
-                          <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/40">
-                            <IconCheck className="w-3 h-3" />
-                            <span>WINNER (Matched)</span>
+                          <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded bg-[var(--positive)]/10 text-[var(--positive)] text-[10px] font-medium border border-[var(--positive)]/20">
+                            <IconCheck size={11} />
+                            <span>Matched</span>
                           </span>
                         ) : (
-                          <span className="text-slate-600">Outcompeted</span>
+                          <span className="text-[var(--text-muted)]">Outcompeted</span>
                         )}
                       </td>
                     </tr>
@@ -346,25 +340,25 @@ export default function TerminalPage() {
             </div>
 
             {/* Actions */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-800">
+            <div className="flex items-center justify-between pt-4 border-t border-[var(--hairline)]">
               <button
                 onClick={() => setStep(1)}
-                className="text-xs text-slate-400 hover:text-white transition-colors"
+                className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
               >
-                ← Edit Intent Constraints
+                &larr; Adjust intent
               </button>
 
               <button
                 onClick={handleSettle}
                 disabled={isProcessing}
-                className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-500 text-slate-950 font-bold text-sm hover:opacity-95 transition-all glow-purple flex items-center space-x-2"
+                className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-md bg-[#ededed] text-[#07080d] font-medium text-xs hover:bg-white transition-colors"
               >
                 {isProcessing ? (
-                  <span>Generating Shielded Settlement Note...</span>
+                  <span>Executing enclave settlement...</span>
                 ) : (
                   <>
-                    <IconLock className="w-4 h-4" />
-                    <span>Execute Confidential Settlement via TEE Enclave</span>
+                    <IconLock size={13} />
+                    <span>Execute confidential settlement</span>
                   </>
                 )}
               </button>
@@ -374,130 +368,122 @@ export default function TerminalPage() {
 
         {/* ─── STEP 3: STEALTH SETTLEMENT & 20-SEC VISUAL ───────────── */}
         {step === 3 && settlementResult && (
-          <div className="space-y-8">
-            {/* Top Success Banner */}
-            <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-                  <IconCheck className="w-6 h-6" />
+          <div className="space-y-6">
+            {/* Top Status */}
+            <div className="surface-card rounded-lg p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 rounded bg-[var(--positive)]/10 text-[var(--positive)] flex items-center justify-center border border-[var(--positive)]/20">
+                  <IconCheck size={16} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-white">Settlement Verified on Robinhood Chain</h3>
-                  <p className="text-xs text-emerald-400 font-mono mt-0.5">
-                    Tx: {settlementResult.txHash.slice(0, 24)}... (Status: Finalized)
+                  <h3 className="text-sm font-medium text-[var(--text-primary)]">Settlement verified on Robinhood Chain</h3>
+                  <p className="text-xs text-[var(--text-muted)] font-mono mt-0.5">
+                    Tx: {settlementResult.txHash.slice(0, 26)}... (Finalized)
                   </p>
                 </div>
               </div>
 
               <button
                 onClick={handleReset}
-                className="px-4 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300 hover:text-white transition-colors font-mono"
+                className="px-3 py-1.5 rounded bg-[var(--bg-deep)] border border-[var(--hairline)] text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors font-mono"
               >
-                Dispatch New Task
+                Dispatch new task
               </button>
             </div>
 
-            {/* THE 20-SECOND VISUAL HOOK: Public vs Private Explorer */}
-            <div className="p-8 rounded-2xl bg-slate-900 border border-slate-800">
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between pb-6 mb-6 border-b border-slate-800 gap-4">
+            {/* The 20-Second Proof Inspector */}
+            <div className="surface-card rounded-lg p-6 space-y-5">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-[var(--hairline)]">
                 <div>
-                  <h3 className="text-lg font-bold text-white flex items-center space-x-2">
-                    <IconEyeOff className="w-5 h-5 text-cyan-400" />
-                    <span>The Zero-Knowledge Inspector (The 20-Second Proof)</span>
+                  <h3 className="text-sm font-medium text-[var(--text-primary)]">
+                    Zero-knowledge inspector (Public ledger vs Authorized viewing key)
                   </h3>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Toggle between the public block explorer and the authorized agent viewing key to see what is hidden.
+                  <p className="text-xs text-[var(--text-secondary)] mt-0.5">
+                    Compare what is visible to the public block explorer versus what the authenticated recipient reconstructs.
                   </p>
                 </div>
 
                 {/* Tab Switcher */}
-                <div className="flex items-center p-1 rounded-xl bg-slate-950 border border-slate-800">
+                <div className="flex items-center p-0.5 rounded bg-[var(--bg-deep)] border border-[var(--hairline)]">
                   <button
                     onClick={() => setActiveTab("public")}
-                    className={`px-4 py-1.5 rounded-lg text-xs font-mono transition-all ${
+                    className={`px-3 py-1 rounded text-xs font-mono transition-colors ${
                       activeTab === "public"
-                        ? "bg-cyan-500 text-slate-950 font-bold"
-                        : "text-slate-400 hover:text-white"
+                        ? "bg-[var(--bg-raised)] text-[var(--text-primary)] font-medium"
+                        : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
                     }`}
                   >
-                    Public Explorer View
+                    Public explorer view
                   </button>
                   <button
                     onClick={() => setActiveTab("private")}
-                    className={`px-4 py-1.5 rounded-lg text-xs font-mono transition-all ${
+                    className={`px-3 py-1 rounded text-xs font-mono transition-colors ${
                       activeTab === "private"
-                        ? "bg-purple-500 text-white font-bold"
-                        : "text-slate-400 hover:text-white"
+                        ? "bg-[var(--bg-raised)] text-[var(--text-primary)] font-medium"
+                        : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
                     }`}
                   >
-                    Authorized Agent Key View
+                    Authorized viewing key
                   </button>
                 </div>
               </div>
 
-              {/* TAB A: WHAT PUBLIC SEES */}
+              {/* TAB CONTENT */}
               {activeTab === "public" ? (
-                <div className="p-6 rounded-xl bg-slate-950 border border-slate-800/80 font-mono text-xs space-y-3">
-                  <div className="text-slate-500 text-[11px] uppercase tracking-wider mb-2">
+                <div className="p-4 rounded bg-[var(--bg-deep)] border border-[var(--hairline)] font-mono text-xs space-y-2.5">
+                  <div className="text-[11px] text-[var(--text-muted)] uppercase tracking-wider mb-1">
                     Robinhood Chain Block Explorer (Public View)
                   </div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-slate-900">
-                    <span className="text-slate-500">Transaction Hash:</span>
-                    <span className="text-cyan-400">{settlementResult.txHash}</span>
+                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-[var(--hairline)]">
+                    <span className="text-[var(--text-muted)]">Transaction hash:</span>
+                    <span className="text-[var(--text-primary)]">{settlementResult.txHash}</span>
                   </div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-slate-900">
-                    <span className="text-slate-500">Method:</span>
-                    <span className="text-slate-300">settleShieldedTask(bytes32,bytes32,bytes32,bytes)</span>
+                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-[var(--hairline)]">
+                    <span className="text-[var(--text-muted)]">Contract method:</span>
+                    <span className="text-[var(--text-secondary)]">settleShieldedTask(bytes32,bytes32,bytes32,bytes)</span>
                   </div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-slate-900">
-                    <span className="text-slate-500">Payer Agent:</span>
-                    <span className="text-amber-400">[MASKED COMMITMENT: 0x4a18...f809]</span>
+                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-[var(--hairline)]">
+                    <span className="text-[var(--text-muted)]">Payer agent:</span>
+                    <span className="text-[var(--text-secondary)]">[Masked commitment: 0x4a18...f809]</span>
                   </div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-slate-900">
-                    <span className="text-slate-500">Recipient Worker:</span>
-                    <span className="text-amber-400">[SHIELDED STEALTH NOTE: {settlementResult.noteCommitment.slice(0, 20)}...]</span>
+                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-[var(--hairline)]">
+                    <span className="text-[var(--text-muted)]">Recipient worker:</span>
+                    <span className="text-[var(--text-secondary)]">[Shielded note: {settlementResult.noteCommitment.slice(0, 22)}...]</span>
                   </div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-slate-900">
-                    <span className="text-slate-500">Transfer Amount:</span>
-                    <span className="text-emerald-400 font-bold">[CONFIDENTIAL - 192-byte SNARK PROOF]</span>
-                  </div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-slate-900">
-                    <span className="text-slate-500">Task Strategy Payload:</span>
-                    <span className="text-slate-500">[ENCRYPTED CIPHERTEXT - ZERO STRATEGY LEAK]</span>
+                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-[var(--hairline)]">
+                    <span className="text-[var(--text-muted)]">Transfer amount:</span>
+                    <span className="text-[var(--positive)] font-medium">[Confidential - 192-byte SNARK proof]</span>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:justify-between py-1">
-                    <span className="text-slate-500">Protocol Fee Captured:</span>
-                    <span className="text-purple-400 font-bold">{settlementResult.protocolFee} USDG (Burned for $VEIL)</span>
+                    <span className="text-[var(--text-muted)]">Protocol fee:</span>
+                    <span className="text-[var(--accent)] tabular-nums">{settlementResult.protocolFee} USDG burned for $VEIL</span>
                   </div>
                 </div>
               ) : (
-                /* TAB B: WHAT AUTHORIZED AGENT SEES */
-                <div className="p-6 rounded-xl bg-purple-950/20 border border-purple-500/30 font-mono text-xs space-y-3">
-                  <div className="text-purple-400 text-[11px] uppercase tracking-wider mb-2 flex items-center space-x-2">
-                    <IconLock className="w-3.5 h-3.5" />
+                <div className="p-4 rounded bg-[var(--bg-deep)] border border-[var(--hairline)] font-mono text-xs space-y-2.5">
+                  <div className="text-[11px] text-[var(--accent)] uppercase tracking-wider mb-1 flex items-center space-x-1.5">
+                    <IconLock size={12} />
                     <span>Decrypted via Agent Private Viewing Key</span>
                   </div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-purple-900/40">
-                    <span className="text-slate-400">Winning Worker:</span>
-                    <span className="text-white font-bold">Agent-Alpha (0x8f2a...c491)</span>
+                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-[var(--hairline)]">
+                    <span className="text-[var(--text-muted)]">Winning worker:</span>
+                    <span className="text-[var(--text-primary)] font-medium">Agent-Alpha (0x8f2a...c491)</span>
                   </div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-purple-900/40">
-                    <span className="text-slate-400">Net Worker Payout:</span>
-                    <span className="text-emerald-400 font-bold">{settlementResult.workerPayout} USDG</span>
+                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-[var(--hairline)]">
+                    <span className="text-[var(--text-muted)]">Net worker payout:</span>
+                    <span className="text-[var(--positive)] font-medium tabular-nums">{settlementResult.workerPayout} USDG</span>
                   </div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-purple-900/40">
-                    <span className="text-slate-400">Strategy Task:</span>
-                    <span className="text-cyan-300">{taskType}</span>
+                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-[var(--hairline)]">
+                    <span className="text-[var(--text-muted)]">Strategy task:</span>
+                    <span className="text-[var(--text-secondary)]">{taskType}</span>
                   </div>
-                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-purple-900/40">
-                    <span className="text-slate-400">Task Execution Output:</span>
-                    <span className="text-slate-200">
-                      "Spread detected: +1.42% arb between Raphael DEX and Uniswap v4 on Robinhood Chain."
-                    </span>
+                  <div className="flex flex-col sm:flex-row sm:justify-between py-1 border-b border-[var(--hairline)]">
+                    <span className="text-[var(--text-muted)]">Execution result:</span>
+                    <span className="text-[var(--text-primary)]">Spread detected: +1.42% arb on Raphael DEX</span>
                   </div>
                   <div className="flex flex-col sm:flex-row sm:justify-between py-1">
-                    <span className="text-slate-400">Execution Speed:</span>
-                    <span className="text-emerald-400 font-bold">38ms (Enclave Sub-Slot Execution)</span>
+                    <span className="text-[var(--text-muted)]">Latency:</span>
+                    <span className="text-[var(--positive)] font-medium tabular-nums">38ms (Enclave sub-slot execution)</span>
                   </div>
                 </div>
               )}
@@ -508,4 +494,3 @@ export default function TerminalPage() {
     </div>
   );
 }
-

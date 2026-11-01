@@ -3,45 +3,76 @@
 @tailwind utilities;
 
 :root {
-  --background: #090a0f;
-  --foreground: #f1f5f9;
-  --accent-cyan: #00f0ff;
-  --accent-purple: #8b5cf6;
-  --accent-emerald: #10b981;
-  --border-glow: rgba(0, 240, 255, 0.15);
+  /* Ink Neutral Ramp (from unslop tokens) */
+  --bg-deep: #07080d;
+  --bg-page: #0b0d14;
+  --bg-card: #11141c;
+  --bg-raised: #1a1e28;
+  --hairline: rgba(238, 240, 245, 0.08);
+  --hairline-strong: rgba(238, 240, 245, 0.14);
+  
+  /* Text Roles */
+  --text-primary: #eef0f5;
+  --text-secondary: #a3a9b8;
+  --text-muted: #7a8296;
+
+  /* Accent: Technical Cyan (used sparingly) */
+  --accent: #00e5ff;
+  --accent-muted: rgba(0, 229, 255, 0.12);
+  
+  /* Semantics */
+  --positive: #4cc38a;
+  --negative: #e5484d;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  overflow-x: hidden;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Custom Scanline & Grid Background */
-.bg-grid-pattern {
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 32px 32px;
+/* Hairline border utility */
+.border-hairline {
+  border: 1px solid var(--hairline);
 }
 
-.glow-cyan {
-  box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
+.border-hairline-strong {
+  border: 1px solid var(--hairline-strong);
 }
 
-.glow-purple {
-  box-shadow: 0 0 25px rgba(139, 92, 246, 0.2);
+/* Depth without glow */
+.surface-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--hairline);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-.text-gradient {
-  background: linear-gradient(135deg, #ffffff 20%, #00f0ff 80%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.surface-raised {
+  background-color: var(--bg-raised);
+  border: 1px solid var(--hairline);
 }
 
-.text-gradient-purple {
-  background: linear-gradient(135deg, #a78bfa 20%, #00f0ff 80%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Tabular figures for all numbers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
 
+/* Stage window styling (from stageshow) */
+.stage-window {
+  background: var(--bg-card);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 12px;
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+}
+
+.stage-titlebar {
+  background: var(--bg-deep);
+  border-bottom: 1px solid var(--hairline);
+  height: 38px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
