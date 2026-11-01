@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { IconShield, IconBot, IconLock, IconCheck, IconEyeOff, IconTerminal, IconArrowRight } from "@/components/Icons";
 
@@ -21,7 +21,12 @@ export default function TerminalPage() {
   const [maxLatency, setMaxLatency] = useState<number>(50);
   const [minRep, setMinRep] = useState<number>(90);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [processingMsg, setProcessingMsg] = useState<string>("");
   const [activeTab, setActiveTab] = useState<"public" | "private">("public");
+
+  // Motion states for Step 2
+  const [rowsRevealed, setRowsRevealed] = useState<number>(0);
+  const [scoresCounted, setScoresCounted] = useState<boolean>(false);
 
   const [bids] = useState<AgentBid[]>([
     {
@@ -62,16 +67,50 @@ export default function TerminalPage() {
     timestamp: string;
   } | null>(null);
 
+  // Trigger staggered row reveal when entering Step 2
+  useEffect(() => {
+    if (step === 2) {
+      setRowsRevealed(0);
+      setScoresCounted(false);
+
+      const t1 = setTimeout(() => setRowsRevealed(1), 100);
+      const t2 = setTimeout(() => setRowsRevealed(2), 220);
+      const t3 = setTimeout(() => {
+        setRowsRevealed(3);
+        setScoresCounted(true);
+      }, 360);
+
+      return () => {
+        clearTimeout(t1);
+        clearTimeout(t2);
+        clearTimeout(t3);
+      };
+    }
+  }, [step]);
+
   const handleDispatch = () => {
     setIsProcessing(true);
+    setProcessingMsg("Broadcasting task intent to Robinhood Chain P2P agent mesh...");
+
+    setTimeout(() => {
+      setProcessingMsg("Evaluating candidate SLA responses via Ragent algorithm...");
+    }, 450);
+
     setTimeout(() => {
       setIsProcessing(false);
+      setProcessingMsg("");
       setStep(2);
-    }, 700);
+    }, 900);
   };
 
   const handleSettle = () => {
     setIsProcessing(true);
+    setProcessingMsg("Generating Intel TDX hardware attestation in sub-50ms enclave...");
+
+    setTimeout(() => {
+      setProcessingMsg("Deriving Poseidon BN254 note commitment and unspent nullifier...");
+    }, 550);
+
     setTimeout(() => {
       const fee = Number((budget * 0.005).toFixed(4));
       const payout = Number((budget - fee).toFixed(4));
@@ -84,13 +123,15 @@ export default function TerminalPage() {
         timestamp: new Date().toISOString(),
       });
       setIsProcessing(false);
+      setProcessingMsg("");
       setStep(3);
-    }, 900);
+    }, 1100);
   };
 
   const handleReset = () => {
     setStep(1);
     setSettlementResult(null);
+    setRowsRevealed(0);
   };
 
   return (
@@ -236,7 +277,7 @@ export default function TerminalPage() {
                   className="w-full py-2.5 rounded-md bg-[#ededed] text-[#07080d] font-medium text-xs hover:bg-white transition-colors flex items-center justify-center space-x-2"
                 >
                   {isProcessing ? (
-                    <span>Registering intent on settlement vault...</span>
+                    <span className="font-mono text-xs animate-pulse">{processingMsg}</span>
                   ) : (
                     <>
                       <span>Dispatch intent &amp; collect bids</span>
@@ -270,7 +311,7 @@ export default function TerminalPage() {
           </div>
         )}
 
-        {/* ─── STEP 2: RAGENT BIDDING MATRIX ──────────────────────── */}
+        {/* ─── STEP 2: RAGENT BIDDING MATRIX (ANIMATED STAGGER) ───── */}
         {step === 2 && (
           <div className="surface-card rounded-lg p-6 space-y-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-[var(--hairline)] gap-3">
@@ -287,7 +328,7 @@ export default function TerminalPage() {
               </div>
             </div>
 
-            {/* Bids Table */}
+            {/* Bids Table with Staggered Entrance */}
             <div className="overflow-x-auto">
               <table className="w-full text-left font-mono text-xs">
                 <thead>
@@ -301,10 +342,12 @@ export default function TerminalPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[var(--hairline)]">
-                  {bids.map((b) => (
+                  {bids.map((b, idx) => (
                     <tr
                       key={b.id}
-                      className={b.selected ? "bg-[var(--bg-raised)]/60 text-[var(--text-primary)]" : "text-[var(--text-secondary)]"}
+                      className={`transition-all duration-300 ${
+                        rowsRevealed > idx ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+                      } ${b.selected ? "bg-[var(--bg-raised)]/60 text-[var(--text-primary)]" : "text-[var(--text-secondary)]"}`}
                     >
                       <td className="py-3 px-3 font-medium flex items-center space-x-2">
                         <IconBot size={13} className={b.selected ? "text-[var(--accent)]" : "text-[var(--text-muted)]"} />
@@ -321,7 +364,9 @@ export default function TerminalPage() {
                       </td>
                       <td className="py-3 px-3 tabular-nums">{b.bidAmount} USDG</td>
                       <td className="py-3 px-3">
-                        <span className="text-[var(--text-primary)] font-medium tabular-nums">{b.score}</span>
+                        <span className="text-[var(--text-primary)] font-medium tabular-nums">
+                          {scoresCounted ? b.score : "--"}
+                        </span>
                       </td>
                       <td className="py-3 px-3">
                         {b.selected ? (
@@ -339,8 +384,8 @@ export default function TerminalPage() {
               </table>
             </div>
 
-            {/* Actions */}
-            <div className="flex items-center justify-between pt-4 border-t border-[var(--hairline)]">
+            {/* Actions & Live Enclave Ticker */}
+            <div className="flex flex-col sm:flex-row items-center justify-between pt-4 border-t border-[var(--hairline)] gap-3">
               <button
                 onClick={() => setStep(1)}
                 className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
@@ -354,7 +399,7 @@ export default function TerminalPage() {
                 className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-md bg-[#ededed] text-[#07080d] font-medium text-xs hover:bg-white transition-colors"
               >
                 {isProcessing ? (
-                  <span>Executing enclave settlement...</span>
+                  <span className="font-mono text-xs animate-pulse">{processingMsg}</span>
                 ) : (
                   <>
                     <IconLock size={13} />
@@ -378,7 +423,7 @@ export default function TerminalPage() {
                 <div>
                   <h3 className="text-sm font-medium text-[var(--text-primary)]">Settlement verified on Robinhood Chain</h3>
                   <p className="text-xs text-[var(--text-muted)] font-mono mt-0.5">
-                    Tx: {settlementResult.txHash.slice(0, 26)}... (Finalized)
+                    Tx: {settlementResult.txHash.slice(0, 26)}... (Finalized in 38ms)
                   </p>
                 </div>
               </div>
@@ -428,9 +473,9 @@ export default function TerminalPage() {
                 </div>
               </div>
 
-              {/* TAB CONTENT */}
+              {/* TAB CONTENT (SMOOTH CROSSFADE) */}
               {activeTab === "public" ? (
-                <div className="p-4 rounded bg-[var(--bg-deep)] border border-[var(--hairline)] font-mono text-xs space-y-2.5">
+                <div className="p-4 rounded bg-[var(--bg-deep)] border border-[var(--hairline)] font-mono text-xs space-y-2.5 transition-all">
                   <div className="text-[11px] text-[var(--text-muted)] uppercase tracking-wider mb-1">
                     Robinhood Chain Block Explorer (Public View)
                   </div>
@@ -460,7 +505,7 @@ export default function TerminalPage() {
                   </div>
                 </div>
               ) : (
-                <div className="p-4 rounded bg-[var(--bg-deep)] border border-[var(--hairline)] font-mono text-xs space-y-2.5">
+                <div className="p-4 rounded bg-[var(--bg-deep)] border border-[var(--hairline)] font-mono text-xs space-y-2.5 transition-all">
                   <div className="text-[11px] text-[var(--accent)] uppercase tracking-wider mb-1 flex items-center space-x-1.5">
                     <IconLock size={12} />
                     <span>Decrypted via Agent Private Viewing Key</span>

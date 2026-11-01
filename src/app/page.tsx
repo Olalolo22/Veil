@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { IconShield, IconBot, IconLock, IconCheck, IconEyeOff, IconTerminal, IconArrowRight } from "@/components/Icons";
+import { IconTerminal, IconArrowRight } from "@/components/Icons";
+import HeroStage from "@/components/HeroStage";
 
 export default function LandingPage() {
   return (
@@ -64,102 +65,7 @@ export default function LandingPage() {
 
           {/* Right: Stageshow Interactive Product Window (7 cols) */}
           <div className="lg:col-span-7">
-            <div className="stage-window">
-              {/* Window Titlebar */}
-              <div className="stage-titlebar justify-between">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[var(--text-muted)]/30"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-[var(--text-muted)]/30"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-[var(--text-muted)]/30"></div>
-                  <span className="text-[11px] font-mono text-[var(--text-muted)] ml-2">
-                    veil-settlement-hub :: session_0x8f2a
-                  </span>
-                </div>
-                <div className="flex items-center space-x-2 text-[10px] font-mono text-[var(--positive)]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--positive)]"></span>
-                  <span>Enclave verified</span>
-                </div>
-              </div>
-
-              {/* Stage Content */}
-              <div className="p-5 font-mono text-xs space-y-4">
-                {/* 1. Intent Line */}
-                <div className="p-3 rounded-lg bg-[var(--bg-deep)] border border-[var(--hairline)]">
-                  <div className="flex justify-between items-center text-[11px] text-[var(--text-muted)] mb-1">
-                    <span>Client agent #04 intent</span>
-                    <span className="text-[var(--text-secondary)]">Escrow: 150.00 USDG</span>
-                  </div>
-                  <div className="text-[var(--text-primary)] font-normal">
-                    Strategy: Arbitrage scan on Robinhood DEX vs Uniswap v4 (SLA &lt; 50ms)
-                  </div>
-                </div>
-
-                {/* 2. Ragent Bidding Result */}
-                <div className="p-3 rounded-lg bg-[var(--bg-deep)] border border-[var(--hairline)]">
-                  <div className="flex justify-between items-center text-[11px] text-[var(--text-muted)] mb-2">
-                    <span>Autonomous bidding evaluation</span>
-                    <span className="text-[var(--positive)] font-medium">Winner: Agent-Alpha</span>
-                  </div>
-                  <div className="grid grid-cols-3 gap-2 text-[11px]">
-                    <div className="p-2 rounded bg-[var(--bg-raised)]/60 border border-[var(--hairline)]">
-                      <span className="text-[var(--text-muted)] block text-[10px]">Latency</span>
-                      <span className="text-[var(--positive)] tabular-nums font-medium">38ms</span>
-                    </div>
-                    <div className="p-2 rounded bg-[var(--bg-raised)]/60 border border-[var(--hairline)]">
-                      <span className="text-[var(--text-muted)] block text-[10px]">Reputation</span>
-                      <span className="text-[var(--text-primary)] tabular-nums font-medium">98.0%</span>
-                    </div>
-                    <div className="p-2 rounded bg-[var(--bg-raised)]/60 border border-[var(--hairline)]">
-                      <span className="text-[var(--text-muted)] block text-[10px]">Score</span>
-                      <span className="text-[var(--accent)] tabular-nums font-medium">96.4 / 100</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* 3. The 20-Second Payoff: Public vs Private Comparison */}
-                <div className="border border-[var(--hairline)] rounded-lg overflow-hidden">
-                  <div className="bg-[var(--bg-raised)] px-3 py-1.5 border-b border-[var(--hairline)] flex justify-between items-center text-[10px] text-[var(--text-muted)] uppercase tracking-wider">
-                    <span>Settlement proof comparison</span>
-                    <span className="text-[var(--text-secondary)]">Tx: 0x9f8c...d18a</span>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-[var(--hairline)] bg-[var(--bg-deep)] text-[11px]">
-                    {/* Left: What Public Explorer Sees */}
-                    <div className="p-3 space-y-1.5">
-                      <div className="text-[10px] text-[var(--text-muted)] flex items-center space-x-1.5">
-                        <IconEyeOff size={11} />
-                        <span>Public explorer sees</span>
-                      </div>
-                      <div className="text-[var(--text-muted)]">
-                        Amount: <span className="text-[var(--positive)] font-medium">[Confidential SNARK]</span>
-                      </div>
-                      <div className="text-[var(--text-muted)]">
-                        Recipient: <span className="text-[var(--text-secondary)]">[Shielded note]</span>
-                      </div>
-                      <div className="text-[var(--text-muted)]">
-                        Strategy: <span className="text-[var(--text-secondary)]">[Zero leakage]</span>
-                      </div>
-                    </div>
-
-                    {/* Right: What Authorized Viewing Key Sees */}
-                    <div className="p-3 space-y-1.5 bg-[var(--bg-raised)]/20">
-                      <div className="text-[10px] text-[var(--accent)] flex items-center space-x-1.5">
-                        <IconLock size={11} />
-                        <span>Authorized viewing key sees</span>
-                      </div>
-                      <div className="text-[var(--text-secondary)]">
-                        Net payout: <span className="text-[var(--text-primary)] font-medium tabular-nums">147.26 USDG</span>
-                      </div>
-                      <div className="text-[var(--text-secondary)]">
-                        Protocol fee: <span className="text-[var(--accent)] tabular-nums">0.74 USDG burned</span>
-                      </div>
-                      <div className="text-[var(--text-secondary)]">
-                        Result: <span className="text-[var(--text-primary)] font-medium">+1.42% spread detected</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <HeroStage />
           </div>
         </div>
       </section>
