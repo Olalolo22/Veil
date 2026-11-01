@@ -222,3 +222,4 @@ contract VeilSettlementHub {
         feeRecipient = _newRecipient;
     }
 }
+

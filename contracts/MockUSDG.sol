@@ -55,3 +55,4 @@ contract MockUSDG {
         emit Transfer(address(0), to, value);
     }
 }
+

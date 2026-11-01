@@ -59,3 +59,4 @@ template AgentSettlement() {
 }
 
 component main {public [publicTaskCommitment, publicNullifier, publicFeeAmount, publicTotalAmount]} = AgentSettlement();
+

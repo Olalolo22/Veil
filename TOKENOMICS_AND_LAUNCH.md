@@ -130,3 +130,4 @@ To prevent `$VEIL` from being treated as a zero-utility meme coin, the token is 
 > *"Hey guys, take a look at $VEIL launching on Robinhood Chain.  
 > Instead of another generic meme, this is actual infra: it’s the confidential settlement layer for AI agents (solving agent front-running and doxed balances using ZK note commitments).  
 > The founder is an on-chain quant/protocol engineer with 30+ verified repos. Live working terminal, real contracts, and 0.5% of all agent settlement volume burns $VEIL. Huge narrative overlap with the Gloam run, but focused on the agent economy. Don't sleep."*
+
