@@ -6,44 +6,41 @@ import { IconShield, IconTerminal, IconArrowRight } from "./Icons";
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 w-full pt-3 pb-3 px-4 sm:px-7 pointer-events-none">
-      <nav className="max-w-[1400px] mx-auto flex items-center justify-between px-5 py-3 rounded-full gl-glass border border-white/[0.08] pointer-events-auto">
-        {/* Left: Brand Identity */}
-        <div className="flex items-center space-x-3">
-          <Link href="/" className="flex items-center space-x-2 text-[var(--foreground)] font-medium text-sm tracking-tight group">
-            <span className="w-7 h-7 rounded-full bg-[var(--surface-2)] border border-[var(--line)] flex items-center justify-center text-[var(--foreground)] group-hover:border-[var(--sealed)] transition-colors">
+    <header className="sticky top-0 z-50 w-full h-[60px] bg-[#0f0f10]/95 backdrop-blur-md border-b border-[rgba(237,237,237,0.07)] px-4 sm:px-8">
+      <div className="max-w-[1340px] h-full mx-auto flex items-center justify-between">
+        {/* Left: Brand & Network Badge */}
+        <div className="flex items-center space-x-3.5">
+          <Link href="/" className="flex items-center space-x-2.5 group">
+            <span className="w-7 h-7 rounded-[7px] bg-[#19191b] border border-[rgba(237,237,237,0.12)] flex items-center justify-center text-[#ededed] group-hover:border-[#ff6b2b] transition-colors">
               <IconShield size={14} />
             </span>
-            <span className="font-semibold text-base">Veil</span>
-            <span className="text-[11px] font-mono text-[var(--mute)] uppercase tracking-wider hidden sm:inline-block">
+            <span className="font-semibold text-[15px] text-[#ededed] tracking-tight">Veil</span>
+            <span className="text-[11px] font-mono text-[#85858b] uppercase tracking-wider hidden sm:inline-block">
               Protocol
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center space-x-2 pl-3 ml-2 border-l border-[var(--line)] text-xs font-mono text-[var(--mute)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--sealed)] animate-pulse"></span>
+          <div className="hidden md:flex items-center space-x-2 pl-3 ml-2 border-l border-[rgba(237,237,237,0.08)] text-[12px] font-mono text-[#85858b]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#4cc38a]" />
             <span>Robinhood Chain 4663</span>
           </div>
         </div>
 
         {/* Center: Navigation Links */}
-        <div className="hidden lg:flex items-center space-x-8 text-xs font-normal text-[var(--foreground-muted)]">
-          <Link href="#transformation" className="hover:text-[var(--foreground)] transition-colors">
-            Transformation mesh
+        <nav className="hidden lg:flex items-center space-x-7 text-[13px] font-normal text-[#a1a1a6]">
+          <Link href="#console" className="hover:text-[#ededed] transition-colors">
+            Console
           </Link>
-          <Link href="#modules" className="hover:text-[var(--foreground)] transition-colors">
-            Interactive modules
+          <Link href="#bento" className="hover:text-[#ededed] transition-colors">
+            Architecture
           </Link>
-          <Link href="#architecture" className="hover:text-[var(--foreground)] transition-colors">
-            Dual-rail architecture
-          </Link>
-          <Link href="#sdk" className="hover:text-[var(--foreground)] transition-colors">
+          <Link href="#sdk" className="hover:text-[#ededed] transition-colors">
             Developer SDK
           </Link>
-          <Link href="#tokenomics" className="hover:text-[var(--foreground)] transition-colors">
-            Fee engine &amp; $VEIL
+          <Link href="#tokenomics" className="hover:text-[#ededed] transition-colors">
+            Tokenomics &amp; $VEIL
           </Link>
-        </div>
+        </nav>
 
         {/* Right: Actions */}
         <div className="flex items-center space-x-3">
@@ -51,21 +48,21 @@ export default function Navbar() {
             href="https://github.com/Olalolo22/Veil"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex text-xs font-mono text-[var(--mute)] hover:text-[var(--foreground)] transition-colors px-3 py-1.5"
+            className="hidden sm:inline-flex text-[12.5px] font-mono text-[#85858b] hover:text-[#ededed] transition-colors px-2 py-1"
           >
             GitHub
           </a>
 
           <Link
             href="/terminal"
-            className="inline-flex items-center space-x-1.5 px-4 py-1.5 rounded-full bg-[#f4f5f6] text-[#08090a] font-medium text-xs hover:bg-white transition-all shadow-sm"
+            className="inline-flex items-center space-x-2 h-[34px] px-3.5 rounded-[8px] bg-[#ededed] text-[#0f0f10] font-medium text-[12.5px] hover:bg-white transition-all shadow-sm"
           >
             <IconTerminal size={13} />
             <span>Terminal</span>
             <IconArrowRight size={12} />
           </Link>
         </div>
-      </nav>
+      </div>
     </header>
   );
 }

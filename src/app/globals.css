@@ -3,51 +3,35 @@
 @tailwind utilities;
 
 :root {
-  /* ─── GLOAM INK & PAPER MONOCHROME SYSTEM ───────────────────────── */
-  --app-ground: #08090a;
-  --foreground: #f4f5f6;
-  --foreground-muted: #9ca3af;
-  --foreground-faint: #6b7280;
+  /* ─── UNSLOP GRAPHITE NEUTRAL RAMP (from unslop/references/tokens.md) ─── */
+  --bg-deep: #0f0f10;
+  --bg-page: #141415;
+  --bg-card: #19191b;
+  --bg-raised: #232325;
+  --hairline: rgba(237, 237, 237, 0.08);
+  --hairline-strong: rgba(237, 237, 237, 0.16);
 
-  --surface: #111214;
-  --surface-2: #17181b;
-  --surface-raised: #1e2025;
+  /* Text Roles */
+  --text-primary: #ededed;
+  --text-secondary: #a1a1a6;
+  --text-muted: #85858b;
 
-  --line: rgba(255, 255, 255, 0.08);
-  --line-strong: rgba(255, 255, 255, 0.16);
-  --line-faint: rgba(255, 255, 255, 0.04);
+  /* Single Lit Accent: Signal Ember (used with restraint) */
+  --accent-ember: #ff6b2b;
+  --accent-ember-soft: rgba(255, 107, 43, 0.12);
 
-  --mute: #8e929b;
-  --faint: #525660;
+  /* Semantic Verifications */
+  --positive: #4cc38a;
+  --negative: #e5484d;
 
-  --ink: #f4f5f6;
-  --on-ink: #08090a;
-
-  /* ─── THE SINGLE SEALED GREEN ACCENT (< 5% OF SCREEN) ───────────── */
-  --sealed: #8fd3ad;
-  --sealed-soft: rgba(143, 211, 173, 0.08);
-  --sealed-border: rgba(143, 211, 173, 0.24);
-  --sealed-glow: rgba(143, 211, 173, 0.15);
-
-  /* Legacy mappings for components */
-  --bg-deep: #08090a;
-  --bg-page: #08090a;
-  --bg-card: #111214;
-  --bg-raised: #17181b;
-  --hairline: rgba(255, 255, 255, 0.08);
-  --hairline-strong: rgba(255, 255, 255, 0.16);
-  --text-primary: #f4f5f6;
-  --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
-
-  /* Motion Curves */
+  /* Motion Curves (from unslop motion law) */
+  --ease-unslop: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-travel: cubic-bezier(0.45, 0, 0.1, 1);
-  --ease-arrival: cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 body {
-  background-color: var(--app-ground);
-  color: var(--foreground);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   letter-spacing: -0.015em;
   -webkit-font-smoothing: antialiased;
@@ -59,145 +43,56 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* Backward-compatible surface utilities */
+/* ─── UNSLOP SURFACES & BUTTONS ─────────────────────────────────── */
+
 .surface-card {
-  background-color: var(--surface);
-  border: 1px solid var(--line);
+  background-color: var(--bg-card);
+  border: 1px solid var(--hairline);
   border-radius: 12px;
 }
 
 .surface-raised {
-  background-color: var(--surface-2);
-  border: 1px solid var(--line);
+  background-color: var(--bg-raised);
+  border: 1px solid var(--hairline);
   border-radius: 8px;
 }
 
-/* ─── GLOAM STRUCTURAL PRIMITIVES ───────────────────────────────── */
-
-/* 24px-radius feature panel with hairline border */
-.gl-panel {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* 18px-radius feature card */
-.gl-card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  position: relative;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-
-.gl-card:hover {
-  border-color: var(--line-strong);
-}
-
-/* Concentric glass rim */
-.gl-glass {
-  background: rgba(255, 255, 255, 0.025);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.gl-glass-sealed {
-  background: rgba(143, 211, 173, 0.03);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--sealed-border);
-}
-
-/* ─── GLOAM PILL BUTTONS ────────────────────────────────────────── */
-
-.btn {
+.btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 9999px;
+  height: 44px;
+  padding: 0 22px;
+  border-radius: 8px;
+  background-color: #ededed;
+  color: #0f0f10;
+  font-size: 13.5px;
   font-weight: 500;
-  transition: all 0.2s var(--ease-travel);
-  cursor: pointer;
-  white-space: nowrap;
+  transition: background-color 150ms var(--ease-unslop), transform 150ms var(--ease-unslop);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
-.btn-ink {
-  background: #f4f5f6;
-  color: #08090a;
-  border: 1px solid #f4f5f6;
-  padding: 12px 26px;
-  font-size: 13.5px;
-  box-shadow: 0 2px 14px rgba(255, 255, 255, 0.08);
-}
-
-.btn-ink:hover {
-  background: #ffffff;
+.btn-primary:hover {
+  background-color: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.14);
 }
 
-.btn-ghost {
-  background: rgba(255, 255, 255, 0.02);
-  color: #f4f5f6;
-  border: 1px solid var(--line-strong);
-  padding: 12px 26px;
-  font-size: 13.5px;
-  backdrop-filter: blur(8px);
-}
-
-.btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.28);
-  color: #ffffff;
-}
-
-/* ─── TYPOGRAPHY DISPLAY ACCENTS ────────────────────────────────── */
-
-.t-display-hero {
-  font-weight: 300;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
-}
-
-/* ─── STAGESHOW DESKTOP SIMULATION WINDOW ───────────────────────── */
-
-.stage-window {
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
-  border-radius: 14px;
-  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.85);
-  overflow: hidden;
-}
-
-.stage-titlebar {
-  background: var(--app-ground);
-  border-bottom: 1px solid var(--line);
-  height: 38px;
-  display: flex;
+.btn-secondary {
+  display: inline-flex;
   align-items: center;
-  padding: 0 16px;
+  justify-content: center;
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 8px;
+  background-color: var(--bg-raised);
+  border: 1px solid var(--hairline-strong);
+  color: var(--text-primary);
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: all 150ms var(--ease-unslop);
 }
 
-.motion-stagger-item {
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.5s var(--ease-arrival), transform 0.5s var(--ease-arrival);
-}
-
-.motion-stagger-item.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@keyframes enclaveProgress {
-  0% { width: 0%; opacity: 1; }
-  80% { width: 100%; opacity: 1; }
-  100% { width: 100%; opacity: 0; }
-}
-
-.animate-enclave-bar {
-  animation: enclaveProgress 1.2s var(--ease-travel) forwards;
+.btn-secondary:hover {
+  background-color: #2b2b2f;
+  border-color: rgba(237, 237, 237, 0.28);
 }

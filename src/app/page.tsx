@@ -2,19 +2,10 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import {
-  IconTerminal,
-  IconArrowRight,
-  IconShield,
-  IconLock,
-  IconEyeOff,
-  IconCheck,
-  IconBot,
-} from "@/components/Icons";
-import { FlowField } from "@/components/FlowField";
-import { SealStream } from "@/components/SealStream";
-import { LiveProduct } from "@/components/LiveProduct";
-import HeroStage from "@/components/HeroStage";
+import { IconTerminal, IconArrowRight, IconShield } from "@/components/Icons";
+import GlyphScene from "@/components/GlyphScene";
+import RisingConsole from "@/components/RisingConsole";
+import RuledBento from "@/components/RuledBento";
 
 export default function LandingPage() {
   const [copied, setCopied] = useState<boolean>(false);
@@ -26,250 +17,117 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--app-ground)] text-[var(--foreground)] selection:bg-[var(--sealed)] selection:text-[var(--app-ground)]">
-      {/* ─── 1. HERO SECTION (GLOAM-PANEL WITH FLOWFIELD) ─────────── */}
-      <section className="pt-2 pb-16 px-4 sm:px-7 max-w-[1400px] mx-auto">
-        <div className="gl-panel min-h-[calc(100svh-7rem)] flex flex-col justify-between p-6 sm:p-12 relative overflow-hidden">
-          {/* WebGL Ambient Flow Canvas Background */}
-          <FlowField className="absolute inset-0 pointer-events-none opacity-80" />
-
-          {/* Top Micro-Pill */}
-          <div className="relative z-10 flex flex-wrap items-center justify-between gap-4">
-            <div className="inline-flex items-center space-x-2.5 px-3 py-1.5 rounded-full gl-glass text-xs font-mono text-[var(--foreground-muted)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--sealed)] animate-pulse"></span>
-              <span className="text-[var(--foreground)] font-medium">Confidential Execution Rail</span>
-              <span className="text-[var(--line-strong)]">|</span>
-              <span className="text-[var(--mute)]">Robinhood Chain 4663 &amp; EVM</span>
+    <div className="min-h-screen bg-[#141415] text-[#ededed] selection:bg-[#ff6b2b] selection:text-[#0f0f10]">
+      {/* ─── 1. HERO SECTION (Asymmetric Split with Glyph Scene) ────── */}
+      <section className="pt-12 sm:pt-20 pb-16 px-4 sm:px-8 max-w-[1340px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Left Column (7 cols): Copy, Actions & Quiet Stats */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="inline-flex items-center space-x-2 px-2.5 py-1 rounded-[6px] bg-[#19191b] border border-[rgba(237,237,237,0.08)] text-[12px] font-mono text-[#a1a1a6]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#ff6b2b]" />
+              <span className="text-[#ededed] font-medium">Confidential Execution Rail</span>
+              <span className="text-[#717177]">/</span>
+              <span className="text-[#85858b]">Robinhood Chain 4663</span>
             </div>
 
-            <div className="hidden sm:flex items-center space-x-4 text-xs font-mono text-[var(--mute)]">
-              <span>Verifier: Groth16 BN254</span>
-              <span>•</span>
-              <span className="text-[var(--sealed)]">Zero Mempool Leakage</span>
-            </div>
-          </div>
-
-          {/* Center Display Typography & CTA */}
-          <div className="relative z-10 my-auto py-12 max-w-4xl">
-            <h1 className="t-display-hero text-4xl sm:text-6xl md:text-7xl lg:text-[76px] text-[var(--foreground)]">
-              Confidential execution for autonomous agents
+            <h1 className="text-4xl sm:text-5xl lg:text-[58px] font-normal tracking-tight text-[#ededed] leading-[1.05]">
+              AI agents that settle without leaking
             </h1>
 
-            <p className="text-base sm:text-lg text-[var(--foreground-muted)] font-light max-w-2xl mt-6 leading-relaxed">
+            <p className="text-base sm:text-lg text-[#a1a1a6] font-normal max-w-xl leading-relaxed">
               Every API payment, model query, and arbitrage dispatch leaks strategy on transparent blockchains.
-              Veil provides policy-driven agent procurement with zero-knowledge stealth settlement on EVM.
+              Veil matches worker agents under strict latency SLAs and settles micro-task payouts via zero-knowledge note commitments.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 mt-8">
-              <Link href="/terminal" className="btn btn-ink space-x-2">
+            <div className="flex flex-wrap items-center gap-3.5 pt-2">
+              <Link href="/terminal" className="btn-primary space-x-2">
                 <IconTerminal size={15} />
                 <span>Launch live terminal</span>
                 <IconArrowRight size={14} />
               </Link>
 
-              <a href="#transformation" className="btn btn-ghost space-x-2">
-                <span>Explore transformation mesh</span>
-                <span className="text-[var(--mute)]">&darr;</span>
+              <a href="#console" className="btn-secondary space-x-2">
+                <span>Inspect telemetry console</span>
+                <span className="text-[#85858b]">&darr;</span>
               </a>
             </div>
-          </div>
 
-          {/* Bottom Glass Telemetry Rim */}
-          <div className="relative z-10 pt-6 border-t border-[var(--line)]">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 font-mono text-xs">
+            {/* Quiet Stats Row (from unslop tokens) */}
+            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-[rgba(237,237,237,0.08)] font-mono text-xs">
               <div>
-                <div className="text-[11px] text-[var(--mute)] uppercase tracking-wider">Settled volume</div>
-                <div className="text-lg font-light text-[var(--foreground)] tabular-nums mt-0.5">$524,800 USDG</div>
-                <div className="text-[10px] text-[var(--mute)]">Stablecoin escrow</div>
+                <div className="text-[11px] text-[#85858b] uppercase tracking-wider">Settled volume</div>
+                <div className="text-[17px] font-medium text-[#ededed] tabular-nums mt-0.5">$524,800</div>
+                <div className="text-[10px] text-[#717177]">USDG stablecoin</div>
               </div>
 
               <div>
-                <div className="text-[11px] text-[var(--mute)] uppercase tracking-wider">Mean latency</div>
-                <div className="text-lg font-light text-[var(--sealed)] tabular-nums mt-0.5">38ms</div>
-                <div className="text-[10px] text-[var(--mute)]">Intel TDX Enclave</div>
+                <div className="text-[11px] text-[#85858b] uppercase tracking-wider">Median latency</div>
+                <div className="text-[17px] font-medium text-[#4cc38a] tabular-nums mt-0.5">38ms</div>
+                <div className="text-[10px] text-[#717177]">Intel TDX Enclave</div>
               </div>
 
               <div>
-                <div className="text-[11px] text-[var(--mute)] uppercase tracking-wider">Zero-knowledge proof</div>
-                <div className="text-lg font-light text-[var(--foreground)] mt-0.5">Groth16 BN254</div>
-                <div className="text-[10px] text-[var(--mute)]">Poseidon nullifiers</div>
-              </div>
-
-              <div>
-                <div className="text-[11px] text-[var(--mute)] uppercase tracking-wider">Protocol fee engine</div>
-                <div className="text-lg font-light text-[var(--sealed)] tabular-nums mt-0.5">0.50% (50 bps)</div>
-                <div className="text-[10px] text-[var(--mute)]">$VEIL buyback &amp; burn</div>
+                <div className="text-[11px] text-[#85858b] uppercase tracking-wider">Protocol burn</div>
+                <div className="text-[17px] font-medium text-[#ff6b2b] tabular-nums mt-0.5">0.50%</div>
+                <div className="text-[10px] text-[#717177]">$VEIL buyback</div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* ─── 2. NETWORK & RUNTIME STRIP ───────────────────────────── */}
-      <section className="border-y border-[var(--line)] bg-[var(--surface)] py-5 px-4 sm:px-7">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-[var(--mute)]">
-          <div className="flex items-center space-x-2 text-[var(--foreground)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--sealed)]"></span>
-            <span className="uppercase tracking-wider text-[11px]">Production execution rails</span>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
-            <span className="hover:text-[var(--foreground)] transition-colors">Robinhood Chain (ID: 4663)</span>
-            <span className="text-[var(--line-strong)]">•</span>
-            <span className="hover:text-[var(--foreground)] transition-colors">Tempo Mainnet</span>
-            <span className="text-[var(--line-strong)]">•</span>
-            <span className="hover:text-[var(--foreground)] transition-colors">Base</span>
-            <span className="text-[var(--line-strong)]">•</span>
-            <span className="hover:text-[var(--foreground)] transition-colors">Ethereum L1</span>
-            <span className="text-[var(--line-strong)]">•</span>
-            <span className="text-[var(--sealed)]">MagicBlock TDX Enclave</span>
+          {/* Right Column (5 cols): Living Glyph Sculpture (unslop/effects.md) */}
+          <div className="lg:col-span-6 rounded-[16px] bg-[#0f0f10] border border-[rgba(237,237,237,0.08)] overflow-hidden shadow-2xl">
+            <GlyphScene />
           </div>
         </div>
       </section>
 
-      {/* ─── 3. THE TRANSFORMATION MESH (SEALSTREAM) ─────────────── */}
-      <section id="transformation">
-        <SealStream />
+      {/* ─── 2. THE RISING CONSOLE APP SHELL (unslop-dashboard-after) ── */}
+      <section id="console" className="pt-6 pb-24 px-4 sm:px-8 max-w-[1340px] mx-auto">
+        <div className="mb-8">
+          <div className="text-[12px] font-mono text-[#ff6b2b] uppercase tracking-wider mb-1.5">
+            Living Protocol Surface
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-medium text-[#ededed] tracking-tight">
+            Real-time settlement telemetry
+          </h2>
+          <p className="text-[13.5px] text-[#85858b] mt-1.5">
+            Full node metrics, SLA breach counters, and active shielded rail bell curves.
+          </p>
+        </div>
+
+        {/* Rising Console Component */}
+        <RisingConsole />
       </section>
 
-      {/* ─── 4. INTERACTIVE WORKING MODULES (LIVE PRODUCT) ───────── */}
-      <section id="modules">
-        <LiveProduct />
-      </section>
-
-      {/* ─── 5. THE SURVEILLANCE PROBLEM ─────────────────────────── */}
-      <section id="problem" className="py-24 border-t border-[var(--line)] bg-[var(--app-ground)]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-7">
-          <div className="max-w-2xl mb-14">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-[var(--mute)]">
-              The fundamental friction
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-light text-[var(--foreground)] mt-2 tracking-tight">
-              Why autonomous agents fail on transparent ledgers
+      {/* ─── 3. RULED BENTO GRID (stageshow/examples/ruled-bento) ──── */}
+      <section id="bento" className="py-24 px-4 sm:px-8 border-t border-[rgba(237,237,237,0.08)] bg-[#0f0f10]">
+        <div className="max-w-[1340px] mx-auto">
+          <div className="max-w-2xl mb-12">
+            <div className="text-[12px] font-mono text-[#85858b] uppercase tracking-wider mb-2">
+              Mechanism Architecture
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-medium text-[#ededed] tracking-tight">
+              Engineered for sub-slot autonomous execution
             </h2>
-            <p className="text-sm text-[var(--foreground-muted)] font-light mt-3 leading-relaxed">
-              When humans trade on-chain, slippage is an annoyance. When autonomous AI agents coordinate on-chain,
-              transparency is fatal to their operating margins.
+            <p className="text-sm text-[#85858b] mt-2.5 leading-relaxed">
+              Combining Ragent dynamic policy matching with Aegis shielded UTXO note commitments on Robinhood Chain.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="gl-card p-8 space-y-4">
-              <span className="text-xs font-mono text-[var(--mute)]">01 / Exploitation</span>
-              <h3 className="text-lg font-light text-[var(--foreground)]">Strategy front-running</h3>
-              <p className="text-xs text-[var(--foreground-muted)] leading-relaxed">
-                When an arbitrage or data-collection agent broadcasts sub-tasks to a public mempool, MEV searchers
-                inspect the parameters, front-run the trade, and strip the agent&apos;s edge before block confirmation.
-              </p>
-              <div className="pt-2 text-[11px] font-mono text-[var(--sealed)]">
-                Veil fix: Encrypted enclave intents
-              </div>
-            </div>
-
-            <div className="gl-card p-8 space-y-4">
-              <span className="text-xs font-mono text-[var(--mute)]">02 / Pricing leverage</span>
-              <h3 className="text-lg font-light text-[var(--foreground)]">Treasury surveillance</h3>
-              <p className="text-xs text-[var(--foreground-muted)] leading-relaxed">
-                Transparent hot wallet balances prevent agents from negotiating fair dynamic pricing. Counterparties
-                price-discriminate by querying the client agent&apos;s real-time balance on Etherscan.
-              </p>
-              <div className="pt-2 text-[11px] font-mono text-[var(--sealed)]">
-                Veil fix: Shielded UTXO commitments
-              </div>
-            </div>
-
-            <div className="gl-card p-8 space-y-4">
-              <span className="text-xs font-mono text-[var(--mute)]">03 / Coordination latency</span>
-              <h3 className="text-lg font-light text-[var(--foreground)]">Human escrow friction</h3>
-              <p className="text-xs text-[var(--foreground-muted)] leading-relaxed">
-                Standard multi-sig escrows require seconds to minutes. Autonomous machine workflows require sub-50ms
-                escrow evaluation with automated slashing and cryptographic proof of delivery.
-              </p>
-              <div className="pt-2 text-[11px] font-mono text-[var(--sealed)]">
-                Veil fix: Sub-50ms TDX clearance
-              </div>
-            </div>
-          </div>
+          {/* Ruled Bento Component */}
+          <RuledBento />
         </div>
       </section>
 
-      {/* ─── 6. DUAL-RAIL ARCHITECTURE & SIMULATION ──────────────── */}
-      <section id="architecture" className="py-24 border-t border-[var(--line)] bg-[var(--surface)]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-7">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4">
+      {/* ─── 4. DEVELOPER SDK & SOLIDITY INTERFACE ────────────────── */}
+      <section id="sdk" className="py-24 px-4 sm:px-8 border-t border-[rgba(237,237,237,0.08)] bg-[#141415]">
+        <div className="max-w-[1340px] mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[var(--mute)]">
-                Mechanism Design
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-light text-[var(--foreground)] mt-2 tracking-tight">
-                Dual-rail procurement &amp; stealth settlement
-              </h2>
-            </div>
-            <p className="text-xs font-mono text-[var(--mute)] max-w-sm">
-              Combining Ragent dynamic policy matching with Aegis confidential note commitments.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Left: Mechanism Explanations (5 cols) */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="gl-card p-6 space-y-3">
-                <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-[var(--foreground)] font-medium">Pass 1: SLA Bidding Engine</span>
-                  <span className="text-[var(--mute)]">Ragent Core</span>
-                </div>
-                <p className="text-xs text-[var(--foreground-muted)] leading-relaxed">
-                  Worker agents submit cryptographic bids containing pricing, latency guarantees, and reputation proofs.
-                  The on-chain scoring function deterministically matches the optimal node:
-                </p>
-                <div className="p-3 rounded-xl bg-[var(--app-ground)] border border-[var(--line)] font-mono text-xs text-[var(--foreground)]">
-                  Score = 0.35(Latency) + 0.35(Reputation) + 0.30(Price)
-                </div>
-              </div>
-
-              <div className="gl-card p-6 space-y-3">
-                <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-[var(--sealed)] font-medium">Pass 2: Shielded Settlement</span>
-                  <span className="text-[var(--mute)]">Aegis Core</span>
-                </div>
-                <p className="text-xs text-[var(--foreground-muted)] leading-relaxed">
-                  Client deposits USDG into <code className="text-[var(--foreground)] font-mono">VeilSettlementHub.sol</code>.
-                  Payouts settle to shielded UTXOs using Poseidon commitments and single-use nullifiers to eliminate tracking:
-                </p>
-                <div className="p-3 rounded-xl bg-[var(--app-ground)] border border-[var(--line)] font-mono text-xs text-[var(--sealed)]">
-                  Commitment = Poseidon(secret, payout, workerPubKey)
-                </div>
-              </div>
-
-              <div className="gl-card p-6 space-y-3">
-                <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-[var(--foreground)] font-medium">Pass 3: Automatic Slashing</span>
-                  <span className="text-[var(--mute)]">SLA Enforcer</span>
-                </div>
-                <p className="text-xs text-[var(--foreground-muted)] leading-relaxed">
-                  If execution exceeds the negotiated latency ceiling or produces an invalid state, worker stake is
-                  instantly slashed and refunded directly to the client agent.
-                </p>
-              </div>
-            </div>
-
-            {/* Right: Embedded Interactive Live Execution Window (7 cols) */}
-            <div className="lg:col-span-7">
-              <HeroStage />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── 7. DEVELOPER SDK & CONTRACT INTERFACE ───────────────── */}
-      <section id="sdk" className="py-24 border-t border-[var(--line)] bg-[var(--app-ground)]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-7">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-            <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[var(--mute)]">
+              <div className="text-[12px] font-mono text-[#85858b] uppercase tracking-wider mb-1.5">
                 Developer Integration
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-light text-[var(--foreground)] mt-2 tracking-tight">
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-medium text-[#ededed] tracking-tight">
                 Integrate confidential agent escrows in 4 lines
               </h2>
             </div>
@@ -277,20 +135,20 @@ export default function LandingPage() {
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => setActiveTab("ts")}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-colors ${
+                className={`px-3 py-1.5 rounded-[6px] text-xs font-mono transition-colors ${
                   activeTab === "ts"
-                    ? "bg-[var(--surface-2)] text-[var(--foreground)] border border-[var(--line-strong)]"
-                    : "text-[var(--mute)] hover:text-[var(--foreground)]"
+                    ? "bg-[#232325] text-[#ededed] border border-[rgba(237,237,237,0.14)]"
+                    : "text-[#85858b] hover:text-[#ededed]"
                 }`}
               >
                 TypeScript SDK
               </button>
               <button
                 onClick={() => setActiveTab("sol")}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-colors ${
+                className={`px-3 py-1.5 rounded-[6px] text-xs font-mono transition-colors ${
                   activeTab === "sol"
-                    ? "bg-[var(--surface-2)] text-[var(--foreground)] border border-[var(--line-strong)]"
-                    : "text-[var(--mute)] hover:text-[var(--foreground)]"
+                    ? "bg-[#232325] text-[#ededed] border border-[rgba(237,237,237,0.14)]"
+                    : "text-[#85858b] hover:text-[#ededed]"
                 }`}
               >
                 Solidity Interface
@@ -298,23 +156,23 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="gl-panel p-6 font-mono text-xs">
-            <div className="flex items-center justify-between pb-4 mb-4 border-b border-[var(--line)] text-xs text-[var(--mute)]">
+          <div className="rounded-[12px] bg-[#0f0f10] border border-[rgba(237,237,237,0.08)] p-6 font-mono text-xs overflow-hidden shadow-xl">
+            <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[rgba(237,237,237,0.06)] text-xs text-[#85858b]">
               <span>{activeTab === "ts" ? "agentDispatch.ts" : "IVeilSettlementHub.sol"}</span>
               <button
                 onClick={handleCopyCode}
-                className="px-3 py-1 rounded-md bg-[var(--surface-2)] hover:bg-[var(--surface-raised)] text-[var(--foreground)] text-[11px] transition-colors"
+                className="px-2.5 py-1 rounded-[4px] bg-[#19191b] hover:bg-[#232325] text-[#ededed] text-[11px] transition-colors"
               >
-                {copied ? "Copied ✓" : "Copy snippet"}
+                {copied ? "Copied ✓" : "Copy code"}
               </button>
             </div>
 
-            <pre className="overflow-x-auto text-[13px] leading-relaxed text-[var(--foreground-muted)]">
+            <pre className="overflow-x-auto text-[13px] leading-relaxed text-[#a1a1a6]">
               {activeTab === "ts" ? (
                 <code>
                   {`import { VeilClient } from "@veilprotocol/sdk";
 
-// Initialize client with viewing key (kept in memory, never broadcast)
+// Initialize client with local viewing key (kept in memory, never exposed)
 const veil = new VeilClient({
   network: "robinhood-4663",
   viewingKey: process.env.AGENT_VIEWING_KEY,
@@ -365,63 +223,63 @@ interface IVeilSettlementHub {
         </div>
       </section>
 
-      {/* ─── 8. TOKENOMICS & CREATOR FEE FLYWHEEL ($VEIL) ────────── */}
-      <section id="tokenomics" className="py-24 border-t border-[var(--line)] bg-[var(--surface)]">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-7">
-          <div className="max-w-2xl mb-14">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-[var(--mute)]">
+      {/* ─── 5. TOKENOMICS & CREATOR FEE FLYWHEEL ($VEIL) ────────── */}
+      <section id="tokenomics" className="py-24 px-4 sm:px-8 border-t border-[rgba(237,237,237,0.08)] bg-[#0f0f10]">
+        <div className="max-w-[1340px] mx-auto">
+          <div className="max-w-2xl mb-12">
+            <div className="text-[12px] font-mono text-[#ff6b2b] uppercase tracking-wider mb-2">
               Economic Architecture
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-light text-[var(--foreground)] mt-2 tracking-tight">
-              Launchpad creator fees &amp; protocol deflation
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-medium text-[#ededed] tracking-tight">
+              Dual creator fees and machine deflation
             </h2>
-            <p className="text-sm text-[var(--foreground-muted)] font-light mt-3 leading-relaxed">
+            <p className="text-sm text-[#85858b] mt-2.5 leading-relaxed">
               Designed to capture sustainable revenue from Robinhood Chain trading activity while establishing
               direct token deflation from machine-to-machine settlement volume.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="gl-card p-8 space-y-4">
-              <span className="text-xs font-mono text-[var(--mute)]">01 / Launchpad Curve</span>
-              <h3 className="text-lg font-light text-[var(--foreground)]">Creator fee capture</h3>
-              <p className="text-xs text-[var(--foreground-muted)] leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-6 rounded-[12px] bg-[#141415] border border-[rgba(237,237,237,0.08)] space-y-3">
+              <span className="text-[12px] font-mono text-[#85858b]">01 / Launchpad Curve</span>
+              <h3 className="text-[17px] font-medium text-[#ededed]">Creator fee capture</h3>
+              <p className="text-xs text-[#a1a1a6] leading-relaxed">
                 During the launch on Robinhood launchpads (Pons / HoodPump), 1.0% creator fees on trading volume
-                route directly to the deployer treasury, generating immediate cash flow without locking liquidity.
+                route directly to the deployer treasury, generating immediate cash flow.
               </p>
             </div>
 
-            <div className="gl-card p-8 space-y-4">
-              <span className="text-xs font-mono text-[var(--mute)]">02 / Protocol Settlement</span>
-              <h3 className="text-lg font-light text-[var(--foreground)]">Programmatic buybacks</h3>
-              <p className="text-xs text-[var(--foreground-muted)] leading-relaxed">
+            <div className="p-6 rounded-[12px] bg-[#141415] border border-[rgba(237,237,237,0.08)] space-y-3">
+              <span className="text-[12px] font-mono text-[#ff6b2b]">02 / Protocol Settlement</span>
+              <h3 className="text-[17px] font-medium text-[#ededed]">Programmatic buybacks</h3>
+              <p className="text-xs text-[#a1a1a6] leading-relaxed">
                 Every task settled via Veil incurs a 50 bps (0.50%) protocol fee. The smart contract automatically
-                market-buys and burns $VEIL from the Robinhood DEX pool, directly tying token value to agent volume.
+                market-buys and burns $VEIL from the Robinhood DEX pool.
               </p>
             </div>
 
-            <div className="gl-card p-8 space-y-4">
-              <span className="text-xs font-mono text-[var(--mute)]">03 / Agent Staking</span>
-              <h3 className="text-lg font-light text-[var(--foreground)]">Worker slashing bond</h3>
-              <p className="text-xs text-[var(--foreground-muted)] leading-relaxed">
+            <div className="p-6 rounded-[12px] bg-[#141415] border border-[rgba(237,237,237,0.08)] space-y-3">
+              <span className="text-[12px] font-mono text-[#4cc38a]">03 / Agent Staking</span>
+              <h3 className="text-[17px] font-medium text-[#ededed]">Worker slashing bond</h3>
+              <p className="text-xs text-[#a1a1a6] leading-relaxed">
                 Worker agents must stake $VEIL to participate in high-value settlement bids. Latency spikes beyond SLA
-                or corrupted proofs trigger automatic slashing, locking circulating supply.
+                or corrupted proofs trigger automatic slashing, locking supply.
               </p>
             </div>
           </div>
 
           {/* Bottom Launch Banner */}
-          <div className="mt-14 gl-panel p-8 sm:p-12 text-center space-y-6">
-            <h3 className="text-2xl sm:text-3xl font-light text-[var(--foreground)] tracking-tight">
-              Deploy your agent to the confidential settlement mesh
+          <div className="mt-12 p-8 sm:p-12 rounded-[14px] bg-[#141415] border border-[rgba(237,237,237,0.08)] text-center space-y-5">
+            <h3 className="text-2xl sm:text-3xl font-medium text-[#ededed] tracking-tight">
+              Test the confidential settlement engine
             </h3>
-            <p className="text-sm text-[var(--foreground-muted)] font-light max-w-xl mx-auto">
-              Access the interactive terminal to simulate task dispatch, match worker nodes, and benchmark Groth16 note clearance.
+            <p className="text-sm text-[#85858b] max-w-lg mx-auto">
+              Simulate task dispatch, test candidate SLA bidding, and benchmark Intel TDX enclave clearance in the interactive terminal.
             </p>
             <div className="pt-2">
-              <Link href="/terminal" className="btn btn-ink space-x-2">
+              <Link href="/terminal" className="btn-primary space-x-2">
                 <IconTerminal size={15} />
-                <span>Open Veil terminal</span>
+                <span>Open live terminal</span>
                 <IconArrowRight size={14} />
               </Link>
             </div>
@@ -429,14 +287,14 @@ interface IVeilSettlementHub {
         </div>
       </section>
 
-      {/* ─── 9. MINIMALIST GLOAM FOOTER ─────────────────────────── */}
-      <footer className="border-t border-[var(--line)] py-12 px-4 sm:px-7 bg-[var(--app-ground)] text-xs font-mono text-[var(--mute)]">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      {/* ─── 6. NOCTURNAL GRAPHITE FOOTER ─────────────────────────── */}
+      <footer className="border-t border-[rgba(237,237,237,0.08)] py-10 px-4 sm:px-8 bg-[#0f0f10] text-xs font-mono text-[#85858b]">
+        <div className="max-w-[1340px] mx-auto flex flex-col md:flex-row items-center justify-between gap-5">
           <div className="flex items-center space-x-3">
-            <span className="w-5 h-5 rounded-full bg-[var(--surface-2)] border border-[var(--line)] flex items-center justify-center text-[var(--foreground)]">
+            <span className="w-5 h-5 rounded-[5px] bg-[#19191b] border border-[rgba(237,237,237,0.12)] flex items-center justify-center text-[#ededed]">
               <IconShield size={11} />
             </span>
-            <span className="text-[var(--foreground)] font-medium">Veil Protocol</span>
+            <span className="text-[#ededed] font-medium">Veil Protocol</span>
             <span>&copy; {new Date().getFullYear()}</span>
           </div>
 
@@ -445,16 +303,16 @@ interface IVeilSettlementHub {
               href="https://github.com/Olalolo22/Veil"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--foreground)] transition-colors"
+              className="hover:text-[#ededed] transition-colors"
             >
               GitHub /Olalolo22/Veil
             </a>
             <span>•</span>
-            <span>Robinhood Chain 4663</span>
+            <span>Robinhood Chain (ID: 4663)</span>
             <span>•</span>
             <span>Groth16 BN254</span>
             <span>•</span>
-            <Link href="/terminal" className="hover:text-[var(--foreground)] transition-colors">
+            <Link href="/terminal" className="hover:text-[#ededed] transition-colors">
               Terminal
             </Link>
           </div>
