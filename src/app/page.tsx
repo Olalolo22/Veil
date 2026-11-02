@@ -17,7 +17,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-page)] text-[var(--text-primary)] transition-colors duration-200">
+    <div className="min-h-screen bg-[var(--bg-page)] text-[var(--text-primary)] font-geist transition-colors duration-200">
       {/* ─── 1. HERO SECTION (Asymmetric Split with Glyph Scene) ────── */}
       <section className="pt-10 sm:pt-16 pb-14 px-4 sm:px-8 max-w-[1340px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">

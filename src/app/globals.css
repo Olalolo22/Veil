@@ -82,6 +82,21 @@ body {
   transition: background-color 200ms ease, color 200ms ease;
 }
 
+/* ─── GEIST SANS (Applied to Landing Page) ─────────────────────── */
+@font-face {
+  font-family: "Geist Sans";
+  src: url("/fonts/Geist-Variable.woff2") format("woff2-variations"),
+       url("/fonts/Geist-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-geist {
+  font-family: "Geist Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: -0.022em;
+}
+
 /* Tabular figures for all financial and latency metrics */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
