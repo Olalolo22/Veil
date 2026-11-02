@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  /* ─── UNSLOP GRAPHITE NEUTRAL RAMP (from unslop/references/tokens.md) ─── */
+  /* ─── UNSLOP GRAPHITE NEUTRAL RAMP (Dark Mode) ─── */
   --bg-deep: #0f0f10;
   --bg-page: #141415;
   --bg-card: #19191b;
@@ -16,7 +16,7 @@
   --text-secondary: #a1a1a6;
   --text-muted: #85858b;
 
-  /* Single Lit Accent: Signal Ember (used with restraint) */
+  /* Single Lit Accent: Signal Ember */
   --accent-ember: #ff6b2b;
   --accent-ember-soft: rgba(255, 107, 43, 0.12);
 
@@ -24,9 +24,52 @@
   --positive: #4cc38a;
   --negative: #e5484d;
 
+  /* Component Surfaces */
+  --bento-bg: #0e0e10;
+  --bento-rule: #222226;
+  --bento-inner: #141416;
+  --bento-bar: #0a0a0c;
+  --console-bg: #141415;
+  --console-sidebar: #0f0f10;
+  --console-card: #19191b;
+  --console-active-tab: #262629;
+
   /* Motion Curves (from unslop motion law) */
   --ease-unslop: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-travel: cubic-bezier(0.45, 0, 0.1, 1);
+}
+
+:root.light, .light {
+  /* ─── UNSLOP ARCHITECTURAL LIGHT RAMP (Light Mode) ─── */
+  --bg-deep: #f0f1f4;
+  --bg-page: #fafafa;
+  --bg-card: #ffffff;
+  --bg-raised: #f4f4f6;
+  --hairline: rgba(24, 24, 27, 0.09);
+  --hairline-strong: rgba(24, 24, 27, 0.18);
+
+  /* Text Roles */
+  --text-primary: #111215;
+  --text-secondary: #52535a;
+  --text-muted: #71727a;
+
+  /* Single Lit Accent: Crisp Burnt Ember */
+  --accent-ember: #ea580c;
+  --accent-ember-soft: rgba(234, 88, 12, 0.12);
+
+  /* Semantic Verifications */
+  --positive: #16a34a;
+  --negative: #dc2626;
+
+  /* Component Surfaces */
+  --bento-bg: #ffffff;
+  --bento-rule: #e4e4e7;
+  --bento-inner: #f4f4f6;
+  --bento-bar: #eaecef;
+  --console-bg: #ffffff;
+  --console-sidebar: #f5f5f7;
+  --console-card: #ffffff;
+  --console-active-tab: #e4e4e7;
 }
 
 body {
@@ -36,6 +79,7 @@ body {
   letter-spacing: -0.015em;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background-color 200ms ease, color 200ms ease;
 }
 
 /* Tabular figures for all financial and latency metrics */
@@ -49,31 +93,33 @@ body {
   background-color: var(--bg-card);
   border: 1px solid var(--hairline);
   border-radius: 12px;
+  transition: background-color 200ms ease, border-color 200ms ease;
 }
 
 .surface-raised {
   background-color: var(--bg-raised);
   border: 1px solid var(--hairline);
   border-radius: 8px;
+  transition: background-color 200ms ease, border-color 200ms ease;
 }
 
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 44px;
-  padding: 0 22px;
+  height: 42px;
+  padding: 0 20px;
   border-radius: 8px;
-  background-color: #ededed;
-  color: #0f0f10;
+  background-color: var(--text-primary);
+  color: var(--bg-page);
   font-size: 13.5px;
   font-weight: 500;
-  transition: background-color 150ms var(--ease-unslop), transform 150ms var(--ease-unslop);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  transition: all 150ms var(--ease-unslop);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .btn-primary:hover {
-  background-color: #ffffff;
+  opacity: 0.92;
   transform: translateY(-1px);
 }
 
@@ -81,10 +127,10 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 44px;
-  padding: 0 20px;
+  height: 42px;
+  padding: 0 18px;
   border-radius: 8px;
-  background-color: var(--bg-raised);
+  background-color: var(--bg-card);
   border: 1px solid var(--hairline-strong);
   color: var(--text-primary);
   font-size: 13.5px;
@@ -93,6 +139,6 @@ body {
 }
 
 .btn-secondary:hover {
-  background-color: #2b2b2f;
-  border-color: rgba(237, 237, 237, 0.28);
+  background-color: var(--bg-raised);
+  border-color: var(--text-muted);
 }
