@@ -72,17 +72,7 @@
   --console-active-tab: #e4e4e7;
 }
 
-body {
-  background-color: var(--bg-page);
-  color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  letter-spacing: -0.015em;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-  transition: background-color 200ms ease, color 200ms ease;
-}
-
-/* ─── GEIST SANS (Applied to Landing Page) ─────────────────────── */
+/* ─── GEIST SANS (Global Typography) ─────────────────────────── */
 @font-face {
   font-family: "Geist Sans";
   src: url("/fonts/Geist-Variable.woff2") format("woff2-variations"),
@@ -90,6 +80,16 @@ body {
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-family: "Geist Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: -0.02em;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color 200ms ease, color 200ms ease;
 }
 
 .font-geist {
